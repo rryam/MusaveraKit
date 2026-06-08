@@ -109,7 +109,7 @@ instruments.otherRanges
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/rudrankriyam/MusaveraKit.git", branch: "main")
+    .package(url: "https://github.com/rryam/MusaveraKit.git", branch: "main")
 ]
 ```
 
