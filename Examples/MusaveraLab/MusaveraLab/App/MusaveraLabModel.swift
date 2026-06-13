@@ -156,7 +156,7 @@ final class MusaveraLabModel {
     }
 
     func reset() {
-        previewPlayer.stop()
+        previewPlayer.unload()
         fullSongPlayer.pause()
         selectedSong = nil
         source = nil
@@ -191,7 +191,13 @@ final class MusaveraLabModel {
         workState = .analyzing
 
         async let playerLoad: Void = previewPlayer.load(asset)
-        let result = try await Musavera.analyze(asset: asset)
+        let result: MusaveraAnalysis
+        do {
+            result = try await Musavera.analyze(asset: asset)
+        } catch {
+            await playerLoad
+            throw error
+        }
         await playerLoad
 
         analysis = result
@@ -210,7 +216,7 @@ final class MusaveraLabModel {
     }
 
     private func fail(with error: Error) {
-        previewPlayer.stop()
+        previewPlayer.unload()
         fullSongPlayer.pause()
         selectedSong = nil
         source = nil

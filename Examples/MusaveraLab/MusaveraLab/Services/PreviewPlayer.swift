@@ -36,9 +36,7 @@ final class PreviewPlayer {
     }
 
     func load(_ asset: AVURLAsset) async {
-        stop()
-        duration = 0
-        sampleRate = Self.defaultSampleRate
+        unload()
 
         let item = AVPlayerItem(asset: asset)
         player.replaceCurrentItem(with: item)
@@ -56,6 +54,15 @@ final class PreviewPlayer {
            let streamDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription) {
             sampleRate = CMTimeScale(streamDescription.pointee.mSampleRate)
         }
+    }
+
+    func unload() {
+        stop()
+        endOfPlaybackTask?.cancel()
+        endOfPlaybackTask = nil
+        player.replaceCurrentItem(with: nil)
+        duration = 0
+        sampleRate = Self.defaultSampleRate
     }
 
     func play() {
