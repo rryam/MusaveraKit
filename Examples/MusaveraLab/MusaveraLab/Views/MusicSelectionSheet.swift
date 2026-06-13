@@ -45,11 +45,9 @@ struct MusicSelectionSheet: View {
                 } else {
                     List(songs) { song in
                         MusicSelectionRow(song: song) {
-                            dismiss()
-                            Task {
-                                await model.analyze(song: song)
-                            }
+                            select(song)
                         }
+                        .disabled(model.isBusy)
                     }
                     .listStyle(.inset)
                 }
@@ -71,6 +69,15 @@ struct MusicSelectionSheet: View {
         .frame(minWidth: 680, minHeight: 540)
         .task(id: SearchContext(query: query, isAuthorized: model.isAuthorized)) {
             await search()
+        }
+    }
+
+    private func select(_ song: Song) {
+        guard !model.isBusy else { return }
+
+        dismiss()
+        Task {
+            await model.analyze(song: song)
         }
     }
 
