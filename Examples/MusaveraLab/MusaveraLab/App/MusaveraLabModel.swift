@@ -211,6 +211,10 @@ final class MusaveraLabModel {
 
     private func fail(with error: Error) {
         previewPlayer.stop()
+        fullSongPlayer.pause()
+        selectedSong = nil
+        source = nil
+        analysis = nil
         workState = .idle
         errorMessage = error.localizedDescription
     }
