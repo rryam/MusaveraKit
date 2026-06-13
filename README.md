@@ -123,7 +123,8 @@ dependencies: [
 that composes first-party MusicKit with MusaveraKit. It searches Apple Music,
 shows catalog artwork, downloads a song's 30-second preview for local analysis,
 offers separate full-song playback, and renders synchronized key, rhythm,
-structure, pace, instrument, and loudness views.
+structure, pace, instrument, and loudness views. The complete native
+MusicUnderstanding result can also be exported as formatted JSON.
 
 The activity charts adapt from one to four columns, so a large window can show
 all four instrument activity timelines side by side.

@@ -46,7 +46,7 @@ MusadoraKit is intentionally not a dependency. MusadoraKit and MusaveraKit remai
 - [x] Use MusaveraKit's key and instrument convenience helpers.
 - [x] Keep analysis work off the UI while exposing a simple app state machine.
 - [ ] Add cancellation when a user chooses a different track mid-analysis.
-- [ ] Add JSON export for sharing analysis results.
+- [x] Export the complete native MusicUnderstanding result as formatted JSON.
 
 ### Visuals
 
@@ -86,7 +86,8 @@ add a MusicKit key to the app's code-signing entitlements.
 The signed app was tested with Bruno Mars' "Grenade" from the Apple Music
 catalog. Its artwork and 30-second preview loaded successfully, playback stayed
 synchronized with the timelines, and MusicUnderstanding reported F major at
-110 BPM for that preview excerpt.
+110 BPM for that preview excerpt. The result can be exported through the native
+macOS save panel as formatted JSON.
 
 ## Apple Sample Attribution
 
