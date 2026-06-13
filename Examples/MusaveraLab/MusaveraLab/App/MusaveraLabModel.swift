@@ -76,6 +76,7 @@ final class MusaveraLabModel {
     func requestAuthorization() async {
         guard workState == .idle else { return }
 
+        errorMessage = nil
         workState = .authorizing
         authorizationStatus = await MusicAuthorization.request()
         workState = .idle
@@ -89,6 +90,7 @@ final class MusaveraLabModel {
     func analyze(song: Song) async {
         guard workState == .idle else { return }
 
+        errorMessage = nil
         selectedSong = song
         analysis = nil
         source = nil
@@ -121,6 +123,7 @@ final class MusaveraLabModel {
     func analyzeLocalFile(at sourceURL: URL) async {
         guard workState == .idle else { return }
 
+        errorMessage = nil
         selectedSong = nil
         analysis = nil
         source = nil
@@ -145,6 +148,7 @@ final class MusaveraLabModel {
     func playFullSong() async {
         guard let selectedSong else { return }
 
+        errorMessage = nil
         previewPlayer.pause()
 
         do {
@@ -162,6 +166,7 @@ final class MusaveraLabModel {
         source = nil
         analysis = nil
         workState = .idle
+        errorMessage = nil
     }
 
     private func analyzeAudio(

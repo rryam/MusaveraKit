@@ -97,13 +97,17 @@ struct AnalysisDashboard: View {
             contentType: .json,
             defaultFilename: source.exportFilename
         ) { result in
-            if case .failure(let error) = result {
+            switch result {
+            case .success:
+                model.errorMessage = nil
+            case .failure(let error):
                 model.errorMessage = "The analysis could not be exported: \(error.localizedDescription)"
             }
         }
     }
 
     private func exportAnalysis() {
+        model.errorMessage = nil
         isExporting = true
     }
 }
