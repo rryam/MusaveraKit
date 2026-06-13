@@ -13,6 +13,7 @@
 		4E9EB78FBA07F3AED856D197 /* AnalysisDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */; };
 		50E590E35281E47FBB31B57A /* MusicSelectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */; };
 		A81A422116DAC9B8A6125471 /* PreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */; };
+		A91B6A70C878816A79A7C3AF /* AnalysisJSONDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */; };
 		B0F5DFB080DD500DF9A8B5FF /* AnalysisComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28134147038B1E3872648893 /* AnalysisComponents.swift */; };
 		D55BBD16F76645103279A0DC /* TimelineComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C546425026A586D4AE6F60 /* TimelineComponents.swift */; };
 		E3553AC3D8690FBDCEC66F53 /* MusaveraKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79D134AB9DE2AC7ECDA156A9 /* MusaveraKit */; };
@@ -36,6 +37,7 @@
 		B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportBar.swift; sourceTree = "<group>"; };
 		C5DD336EA101AD39E6141936 /* MusicBrowserSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrowserSidebar.swift; sourceTree = "<group>"; };
 		DBF41C8160D78F589E34CEE8 /* MusaveraKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MusaveraKit; path = ../..; sourceTree = SOURCE_ROOT; };
+		DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisJSONDocument.swift; sourceTree = "<group>"; };
 		E038E4851D68CBE647F8DF98 /* MusaveraLabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusaveraLabModel.swift; sourceTree = "<group>"; };
 		E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSelectionSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,11 +124,20 @@
 				351EE86AE67DD541E20901CC /* MusaveraLab.entitlements */,
 				17F91F1BF6C6D59CC92807B9 /* Theme.swift */,
 				9F3BF4EA07744FF279BBA3D0 /* App */,
+				F7F79764B4E0D5C905588239 /* Documents */,
 				5D907943F997C17C6829F95A /* Services */,
 				29800BCA3A37D96D264A5266 /* Views */,
 				01615905EABEE2D5C93439D3 /* Visualizations */,
 			);
 			path = MusaveraLab;
+			sourceTree = "<group>";
+		};
+		F7F79764B4E0D5C905588239 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */,
+			);
+			path = Documents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +206,7 @@
 			files = (
 				B0F5DFB080DD500DF9A8B5FF /* AnalysisComponents.swift in Sources */,
 				4E9EB78FBA07F3AED856D197 /* AnalysisDashboard.swift in Sources */,
+				A91B6A70C878816A79A7C3AF /* AnalysisJSONDocument.swift in Sources */,
 				EC67369138AEA5397F184A95 /* AudioFileStore.swift in Sources */,
 				F17FAD96862797EAC998B10D /* ContentView.swift in Sources */,
 				2BA84BC4C0402FADE8E84A6F /* MusaveraLabApp.swift in Sources */,

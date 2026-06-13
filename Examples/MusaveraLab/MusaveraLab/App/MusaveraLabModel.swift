@@ -13,6 +13,14 @@ final class MusaveraLabModel {
         let artworkURL: URL?
         let localURL: URL
         let isAppleMusicPreview: Bool
+
+        var exportFilename: String {
+            let filename = "\(title) - \(subtitle) Analysis"
+            let disallowedCharacters = CharacterSet(charactersIn: "/:")
+            return filename
+                .components(separatedBy: disallowedCharacters)
+                .joined(separator: "-")
+        }
     }
 
     enum WorkState {

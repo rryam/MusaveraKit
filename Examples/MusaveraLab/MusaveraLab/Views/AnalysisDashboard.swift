@@ -1,8 +1,10 @@
 import MusaveraKit
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct AnalysisDashboard: View {
     @Environment(MusaveraLabModel.self) private var model
+    @State private var isExporting = false
 
     let source: MusaveraLabModel.AudioSource
     let analysis: MusaveraAnalysis
@@ -22,6 +24,7 @@ struct AnalysisDashboard: View {
             VStack(alignment: .leading, spacing: 18) {
                 SourceHeader(
                     source: source,
+                    onExport: exportAnalysis,
                     onChooseMusic: onChooseMusic
                 )
 
@@ -88,6 +91,20 @@ struct AnalysisDashboard: View {
             .frame(maxWidth: 1_400, alignment: .leading)
             .padding(28)
         }
+        .fileExporter(
+            isPresented: $isExporting,
+            document: AnalysisJSONDocument(analysis: analysis),
+            contentType: .json,
+            defaultFilename: source.exportFilename
+        ) { result in
+            if case .failure(let error) = result {
+                model.errorMessage = "The analysis could not be exported: \(error.localizedDescription)"
+            }
+        }
+    }
+
+    private func exportAnalysis() {
+        isExporting = true
     }
 }
 
@@ -95,6 +112,7 @@ private struct SourceHeader: View {
     @Environment(MusaveraLabModel.self) private var model
 
     let source: MusaveraLabModel.AudioSource
+    let onExport: () -> Void
     let onChooseMusic: () -> Void
 
     var body: some View {
@@ -135,6 +153,9 @@ private struct SourceHeader: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
+
+                Button("Export JSON", systemImage: "square.and.arrow.up", action: onExport)
+                    .buttonStyle(.bordered)
 
                 Button {
                     onChooseMusic()
