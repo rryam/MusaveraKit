@@ -4,6 +4,13 @@ import Testing
 
 @Suite("Musavera analysis options")
 struct MusaveraAnalysisOptionsTests {
+    @Test("Empty options map to no framework analysis types")
+    func emptyMapsToNoAnalysisTypes() {
+        let options = MusaveraAnalysisOptions()
+
+        #expect(options.musicUnderstandingTypes.isEmpty)
+    }
+
     @Test("Maps all focused options to MusicUnderstanding analysis types")
     func mapsFocusedOptions() {
         #expect(MusaveraAnalysisOptions.rhythm.musicUnderstandingTypes == [.rhythm])

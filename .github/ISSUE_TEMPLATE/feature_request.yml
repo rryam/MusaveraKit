@@ -1,0 +1,40 @@
+name: Feature request
+description: Propose a focused addition or API improvement
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What MusicUnderstanding workflow is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API or behavior
+      description: Show the call site you would like to write when possible.
+      render: swift
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Include direct MusicUnderstanding APIs or existing helpers you evaluated.
+  - type: textarea
+    id: scope
+    attributes:
+      label: Additional context
+      description: Link relevant Apple documentation, sessions, or Feedback Assistant reports.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: This proposal belongs in a reusable package rather than only in an app.
+          required: true
+        - label: I searched existing issues and pull requests.
+          required: true

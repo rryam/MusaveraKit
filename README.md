@@ -1,58 +1,99 @@
 # MusaveraKit
 
-One-line Swift APIs for Apple's `MusicUnderstanding.framework`.
+Small, app-friendly Swift APIs for on-device music analysis with Apple's
+[Music Understanding](https://developer.apple.com/documentation/MusicUnderstanding)
+framework.
 
-MusaveraKit is the music-intelligence sibling to MusadoraKit. Where MusadoraKit makes MusicKit and the Apple Music API easier to use, MusaveraKit makes Apple's new MusicUnderstanding framework easier to use.
+[![Repository checks](https://github.com/rryam/MusaveraKit/actions/workflows/repository-checks.yml/badge.svg)](https://github.com/rryam/MusaveraKit/actions/workflows/repository-checks.yml)
+[![Swift 6.4](https://img.shields.io/badge/Swift-6.4-F05138.svg?logo=swift&logoColor=white)](https://www.swift.org)
+[![Apple platforms 27+](https://img.shields.io/badge/Apple%20platforms-27%2B-000000.svg?logo=apple&logoColor=white)](#requirements)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ```swift
 import AVFoundation
 import MusaveraKit
 
-let asset = AVURLAsset(url: songURL)
+let asset = AVURLAsset(url: audioURL)
 let analysis = try await Musavera.analyze(asset: asset)
 
-print(analysis.beatsPerMinute)
-print(analysis.key?.primarySignature?.musaveraDescription)
-print(analysis.structure?.sections)
-print(analysis.instrumentActivity?.vocalRanges)
+print(analysis.beatsPerMinute as Any)
+print(analysis.key?.primarySignature?.musaveraDescription as Any)
+print(analysis.sectionCount)
 ```
+
+MusaveraKit keeps Music Understanding's native result types available while
+removing repetition around session setup, focused analysis, optional results,
+and common timeline lookups.
+
+## Early Access
+
+Music Understanding was introduced at WWDC26 and remains a beta framework.
+MusaveraKit tracks that SDK closely, so APIs and platform requirements may
+change during the beta cycle.
+
+Full compilation and runtime testing require Xcode 27 and an operating-system
+27 runtime. GitHub's current hosted runners do not include that SDK, so CI
+performs repository, manifest, privacy, and Swift syntax validation. Complete
+builds and tests are run locally with Xcode 27.
 
 ## Requirements
 
-- Xcode 27 beta
-- Swift 6.4 toolchain
+- Xcode 27 beta or later
+- Swift 6.4 or later
 - iOS 27.0+
 - macOS 27.0+
 - tvOS 27.0+
 - watchOS 27.0+
 - visionOS 27.0+
 
-`MusicUnderstanding.framework` is currently available in the Xcode 27 beta SDK.
+## Installation
 
-## What It Wraps
-
-MusaveraKit sits on top of:
+Add MusaveraKit with Swift Package Manager:
 
 ```swift
-MusicUnderstandingSession
-AnalysisType
-RhythmResult
-KeyResult
-LoudnessResult
-PaceResult
-StructureResult
-InstrumentActivityResult
+dependencies: [
+    .package(
+        url: "https://github.com/rryam/MusaveraKit.git",
+        branch: "main"
+    )
+]
 ```
 
-## One-Line APIs
-
-Analyze everything:
+Then add the product to your target:
 
 ```swift
+.product(name: "MusaveraKit", package: "MusaveraKit")
+```
+
+The package has not published its first semantic-version tag yet. Pin a commit
+for reproducible production builds until a tagged release is available.
+
+## Analyze Audio
+
+Create an `AVAsset` for audio your app can access, then request all supported
+analysis:
+
+```swift
+let asset = AVURLAsset(url: audioURL)
 let analysis = try await Musavera.analyze(asset: asset)
 ```
 
-Analyze selected dimensions:
+The returned `MusaveraAnalysis` exposes Music Understanding's session result
+and convenient accessors for:
+
+- rhythm, beats, bars, and beats per minute
+- musical key
+- loudness
+- perceived pace
+- sections, phrases, and segments
+- vocal, drum, bass, and other instrument activity
+
+Music Understanding performs its analysis on device. MusaveraKit does not
+upload audio, download Apple Music content, or require MusadoraKit.
+
+## Request Only What You Need
+
+Selected analysis avoids unnecessary work:
 
 ```swift
 let analysis = try await Musavera.analyze(
@@ -61,7 +102,7 @@ let analysis = try await Musavera.analyze(
 )
 ```
 
-Fetch focused results:
+Use a focused helper when one result is enough:
 
 ```swift
 let rhythm = try await Musavera.rhythm(for: asset)
@@ -72,50 +113,42 @@ let structure = try await Musavera.structure(for: asset)
 let instruments = try await Musavera.instrumentActivity(for: asset)
 ```
 
-## Convenience Helpers
+Passing an empty option set throws `MusaveraKitError.emptyAnalysisSet`. A
+focused helper throws `MusaveraKitError.missingResult` if the framework does not
+return its requested result.
+
+## Timeline Helpers
+
+MusaveraKit adds small conveniences for playback-synchronized interfaces:
 
 ```swift
-analysis.beatsPerMinute
-analysis.beatCount
-analysis.barCount
-analysis.sectionCount
-analysis.keySignature(at: time)
+let signature = analysis.keySignature(at: playbackTime)
+let nearestBeat = rhythm.nearestBeat(to: playbackTime)
+let nearestBar = rhythm.nearestBar(to: playbackTime)
+
+let section = structure.section(containing: playbackTime)
+let phrase = structure.phrase(containing: playbackTime)
+let segment = structure.segment(containing: playbackTime)
 ```
+
+Instrument activity is available as both detected ranges and timed values:
 
 ```swift
-key.primarySignature?.musaveraDescription
-key.signature(at: time)
+let vocalRanges = instruments.vocalRanges
+let drumRanges = instruments.drumRanges
+let bassRanges = instruments.bassRanges
+let otherRanges = instruments.otherRanges
+
+let vocalActivity = instruments.activity(for: .vocal)
 ```
 
-```swift
-rhythm.nearestBeat(to: time)
-rhythm.nearestBar(to: time)
-```
+## MusadoraKit and MusaveraKit
 
-```swift
-structure.section(containing: time)
-structure.phrase(containing: time)
-structure.segment(containing: time)
-```
-
-```swift
-instruments.vocalRanges
-instruments.drumRanges
-instruments.bassRanges
-instruments.otherRanges
-```
-
-## Installation
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/rryam/MusaveraKit.git", branch: "main")
-]
-```
-
-```swift
-.product(name: "MusaveraKit", package: "MusaveraKit")
-```
+[MusadoraKit](https://github.com/rryam/MusadoraKit) simplifies MusicKit and
+Apple Music API workflows such as catalog search, library access, and playback.
+MusaveraKit analyzes audio assets for musical characteristics. The packages are
+independent so apps can adopt either one, while remaining complementary for
+music discovery, playback, and visualization experiences.
 
 ## Musavera Lab
 
@@ -129,25 +162,63 @@ MusicUnderstanding result can also be exported as formatted JSON.
 The activity charts adapt from one to four columns, so a large window can show
 all four instrument activity timelines side by side.
 
-## Current Status
+## Development
 
-This is a beta SDK package. It is intentionally small and compiler-first while Apple finishes documenting the MusicUnderstanding framework.
-
-The first version focuses on:
-
-- clean one-line analysis calls
-- focused helpers for each result type
-- timeline-friendly convenience APIs
-- testable option/result helpers
-
-## Build
+Select Xcode 27 if it is not already active:
 
 ```bash
-DEVELOPER_DIR=/Users/rudrank/Downloads/Xcode-beta.app/Contents/Developer \
-xcodebuild -scheme MusaveraKit \
+export DEVELOPER_DIR=/path/to/Xcode-beta.app/Contents/Developer
+```
+
+Run the complete test suite:
+
+```bash
+swift test
+```
+
+Build an Apple-platform target:
+
+```bash
+xcodebuild \
+  -scheme MusaveraKit \
   -destination 'generic/platform=iOS' \
-  -derivedDataPath ./.build/xcode \
+  -derivedDataPath .build/xcode \
   build
 ```
 
-`swift test` currently compiles the package, but cannot run on a Mac that does not have the macOS 27 `MusicUnderstanding.framework` runtime installed in `/System/Library/Frameworks`.
+Run checks that also work before the Xcode 27 SDK is available:
+
+```bash
+Scripts/validate-repository.sh
+```
+
+Generate DocC documentation:
+
+```bash
+swift package generate-documentation --target MusaveraKit
+```
+
+## Documentation and Resources
+
+- [Getting Started](Sources/MusaveraKit/Documentation.docc/GettingStarted.md)
+- [Working with Analysis Results](Sources/MusaveraKit/Documentation.docc/AnalysisResults.md)
+- [Music Understanding documentation](https://developer.apple.com/documentation/MusicUnderstanding)
+- [Meet the Music Understanding framework](https://developer.apple.com/videos/play/wwdc2026/253/)
+- [Creating visuals using analysis results](https://developer.apple.com/documentation/MusicUnderstanding/create-visuals-using-musicunderstanding-analysis-results)
+
+## Project Policies
+
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change.
+- Use [SUPPORT.md](SUPPORT.md) to choose the right reporting channel.
+- Report vulnerabilities according to [SECURITY.md](SECURITY.md).
+- Follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+- See [CONTRIBUTORS.md](CONTRIBUTORS.md) for project attribution.
+- Review [CHANGELOG.md](CHANGELOG.md) for notable changes.
+
+## License
+
+MusaveraKit is available under the MIT License. See [LICENSE](LICENSE).
+
+Apple, Apple Music, MusicKit, and related marks are trademarks of Apple Inc.
+MusaveraKit is an independent open-source project and is not affiliated with or
+endorsed by Apple.

@@ -23,6 +23,7 @@ extension KeyResult.KeySignature {
 }
 
 extension KeyResult.Tonic {
+    /// A compact display label for the tonic, using `b` and `#` accidentals.
     public var musaveraDescription: String {
         switch self {
         case .aFlat:
