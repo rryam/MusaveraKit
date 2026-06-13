@@ -1,0 +1,33 @@
+name: Repository checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate package repository
+    runs-on: macos-26
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Validate repository
+        run: Scripts/validate-repository.sh
+
+      - name: Explain SDK-dependent testing
+        run: |
+          echo "Full builds and tests require Xcode 27 and the MusicUnderstanding SDK."
+          echo "They are run locally until GitHub provides an Xcode 27 image."
