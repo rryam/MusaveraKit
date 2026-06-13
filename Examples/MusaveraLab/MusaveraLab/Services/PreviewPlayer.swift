@@ -6,12 +6,14 @@ import Observation
 @Observable
 @MainActor
 final class PreviewPlayer {
+    private static let defaultSampleRate: CMTimeScale = 44_100
+
     let player = AVPlayer()
 
     private(set) var isPlaying = false
     private(set) var currentTime: Double = 0
     private(set) var duration: Double = 0
-    private(set) var sampleRate: CMTimeScale = 44_100
+    private(set) var sampleRate = defaultSampleRate
 
     var volume: Float = 1 {
         didSet {
@@ -35,6 +37,8 @@ final class PreviewPlayer {
 
     func load(_ asset: AVURLAsset) async {
         stop()
+        duration = 0
+        sampleRate = Self.defaultSampleRate
 
         let item = AVPlayerItem(asset: asset)
         player.replaceCurrentItem(with: item)
