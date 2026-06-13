@@ -54,7 +54,7 @@ Add MusaveraKit with Swift Package Manager:
 dependencies: [
     .package(
         url: "https://github.com/rryam/MusaveraKit.git",
-        branch: "main"
+        from: "0.1.0"
     )
 ]
 ```
@@ -64,9 +64,6 @@ Then add the product to your target:
 ```swift
 .product(name: "MusaveraKit", package: "MusaveraKit")
 ```
-
-The package has not published its first semantic-version tag yet. Pin a commit
-for reproducible production builds until a tagged release is available.
 
 ## Analyze Audio
 
