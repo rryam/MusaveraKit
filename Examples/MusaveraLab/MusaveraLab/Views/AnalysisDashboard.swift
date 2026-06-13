@@ -150,10 +150,13 @@ private struct SourceHeader: View {
                 if model.selectedSong != nil {
                     Button {
                         Task {
-                            await model.playFullSong()
+                            await model.toggleFullSongPlayback()
                         }
                     } label: {
-                        Label("Play Full Song", systemImage: "music.note")
+                        Label(
+                            model.isFullSongPlaybackActive ? "Pause Full Song" : "Play Full Song",
+                            systemImage: model.isFullSongPlaybackActive ? "pause.fill" : "music.note"
+                        )
                     }
                     .buttonStyle(.borderedProminent)
                 }

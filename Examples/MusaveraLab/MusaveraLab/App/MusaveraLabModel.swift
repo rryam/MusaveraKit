@@ -55,11 +55,23 @@ final class MusaveraLabModel {
     var analysis: MusaveraAnalysis?
     var workState: WorkState = .idle
     var errorMessage: String?
+    private(set) var fullSongPlaybackStatus = ApplicationMusicPlayer.shared.state.playbackStatus
+    private(set) var isStartingFullSong = false
 
     let previewPlayer = PreviewPlayer()
 
     @ObservationIgnored private let fileStore = AudioFileStore()
     @ObservationIgnored private let fullSongPlayer = ApplicationMusicPlayer.shared
+    @ObservationIgnored private var fullSongStateTask: Task<Void, Never>?
+    @ObservationIgnored private var pendingFullSongPlayID: UUID?
+
+    init() {
+        observeFullSongState()
+    }
+
+    isolated deinit {
+        fullSongStateTask?.cancel()
+    }
 
     var isBusy: Bool {
         workState != .idle
@@ -67,6 +79,19 @@ final class MusaveraLabModel {
 
     var isAuthorized: Bool {
         authorizationStatus == .authorized
+    }
+
+    var isFullSongPlaybackActive: Bool {
+        if isStartingFullSong {
+            true
+        } else {
+            switch fullSongPlaybackStatus {
+            case .playing, .seekingForward, .seekingBackward:
+                true
+            default:
+                false
+            }
+        }
     }
 
     func prepare() {
@@ -95,7 +120,7 @@ final class MusaveraLabModel {
         analysis = nil
         source = nil
         previewPlayer.stop()
-        fullSongPlayer.pause()
+        cancelFullSongPlayback()
 
         do {
             guard let previewURL = song.previewAssets?.compactMap(\.url).first else {
@@ -128,7 +153,7 @@ final class MusaveraLabModel {
         analysis = nil
         source = nil
         previewPlayer.stop()
-        fullSongPlayer.pause()
+        cancelFullSongPlayback()
         workState = .importing
 
         do {
@@ -145,23 +170,52 @@ final class MusaveraLabModel {
         }
     }
 
-    func playFullSong() async {
+    func togglePreviewPlayback() {
+        if previewPlayer.isPlaying {
+            previewPlayer.pause()
+        } else {
+            cancelFullSongPlayback()
+            previewPlayer.play()
+        }
+    }
+
+    func toggleFullSongPlayback() async {
         guard let selectedSong else { return }
+
+        if isFullSongPlaybackActive {
+            cancelFullSongPlayback()
+            return
+        }
 
         errorMessage = nil
         previewPlayer.pause()
 
+        let requestID = UUID()
+        pendingFullSongPlayID = requestID
+        isStartingFullSong = true
+        defer {
+            if pendingFullSongPlayID == requestID {
+                pendingFullSongPlayID = nil
+                isStartingFullSong = false
+            }
+        }
+
         do {
             fullSongPlayer.queue = ApplicationMusicPlayer.Queue(for: [selectedSong])
             try await fullSongPlayer.play()
+            guard pendingFullSongPlayID == requestID else {
+                fullSongPlayer.pause()
+                return
+            }
         } catch {
+            guard pendingFullSongPlayID == requestID else { return }
             errorMessage = "Full-song playback could not start: \(error.localizedDescription)"
         }
     }
 
     func reset() {
         previewPlayer.unload()
-        fullSongPlayer.pause()
+        cancelFullSongPlayback()
         selectedSong = nil
         source = nil
         analysis = nil
@@ -222,12 +276,39 @@ final class MusaveraLabModel {
 
     private func fail(with error: Error) {
         previewPlayer.unload()
-        fullSongPlayer.pause()
+        cancelFullSongPlayback()
         selectedSong = nil
         source = nil
         analysis = nil
         workState = .idle
         errorMessage = error.localizedDescription
+    }
+
+    private func cancelFullSongPlayback() {
+        pendingFullSongPlayID = nil
+        isStartingFullSong = false
+        fullSongPlayer.pause()
+    }
+
+    private func observeFullSongState() {
+        let player = fullSongPlayer
+        fullSongStateTask = Task { @MainActor [weak self] in
+            let statuses = Observations {
+                player.state.playbackStatus
+            }
+
+            for await status in statuses {
+                guard let self else { return }
+                self.fullSongPlaybackStatus = status
+
+                switch status {
+                case .playing, .seekingForward, .seekingBackward:
+                    self.previewPlayer.pause()
+                default:
+                    break
+                }
+            }
+        }
     }
 }
 

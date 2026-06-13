@@ -75,10 +75,6 @@ final class PreviewPlayer {
         isPlaying = false
     }
 
-    func togglePlayback() {
-        isPlaying ? pause() : play()
-    }
-
     func stop() {
         pause()
         player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero)

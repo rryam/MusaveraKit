@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TransportBar: View {
+    @Environment(MusaveraLabModel.self) private var model
     @Environment(PreviewPlayer.self) private var player
 
     var body: some View {
@@ -8,7 +9,7 @@ struct TransportBar: View {
 
         HStack(spacing: 16) {
             Button {
-                player.togglePlayback()
+                model.togglePreviewPlayback()
             } label: {
                 Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                     .font(.body.weight(.semibold))
