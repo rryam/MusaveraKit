@@ -3,13 +3,24 @@ import Foundation
 import MusicUnderstanding
 
 /// A small, app-friendly wrapper around `MusicUnderstandingSession.SessionResult`.
-public struct MusaveraAnalysis: Sendable {
+///
+/// Encoding a `MusaveraAnalysis` writes the underlying session result directly,
+/// preserving MusicUnderstanding's native JSON representation.
+public struct MusaveraAnalysis: Codable, Sendable {
     /// The original aggregate returned by Music Understanding.
     public let result: MusicUnderstandingSession.SessionResult
 
     /// Creates an app-friendly view of a Music Understanding session result.
     public init(result: MusicUnderstandingSession.SessionResult) {
         self.result = result
+    }
+
+    public init(from decoder: any Decoder) throws {
+        result = try MusicUnderstandingSession.SessionResult(from: decoder)
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        try result.encode(to: encoder)
     }
 
     /// Activity ranges and values for detected instrument categories.

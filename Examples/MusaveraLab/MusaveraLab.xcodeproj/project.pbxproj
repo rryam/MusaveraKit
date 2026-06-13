@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		24785B8BAB77C0EBC9A28DA1 /* MusaveraLabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E038E4851D68CBE647F8DF98 /* MusaveraLabModel.swift */; };
+		2AD8EE2019F19C3DC7536C8E /* MusicBrowserSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DD336EA101AD39E6141936 /* MusicBrowserSidebar.swift */; };
+		2BA84BC4C0402FADE8E84A6F /* MusaveraLabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0BE121349F66D59ED4BD2A /* MusaveraLabApp.swift */; };
+		4E9EB78FBA07F3AED856D197 /* AnalysisDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */; };
+		50E590E35281E47FBB31B57A /* MusicSelectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */; };
+		A81A422116DAC9B8A6125471 /* PreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */; };
+		A91B6A70C878816A79A7C3AF /* AnalysisJSONDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */; };
+		B0F5DFB080DD500DF9A8B5FF /* AnalysisComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28134147038B1E3872648893 /* AnalysisComponents.swift */; };
+		D55BBD16F76645103279A0DC /* TimelineComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C546425026A586D4AE6F60 /* TimelineComponents.swift */; };
+		E3553AC3D8690FBDCEC66F53 /* MusaveraKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79D134AB9DE2AC7ECDA156A9 /* MusaveraKit */; };
+		E9A96DD35B7FDEF43189AA2A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F91F1BF6C6D59CC92807B9 /* Theme.swift */; };
+		EC67369138AEA5397F184A95 /* AudioFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018FE4324BF125ABD274B2D /* AudioFileStore.swift */; };
+		F0D97C334B4F79CA294898F9 /* TransportBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */; };
+		F17FAD96862797EAC998B10D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7010759E3CE72A46D76413 /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		16850E396168613A82B4E05D /* MusaveraLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusaveraLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		17F91F1BF6C6D59CC92807B9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		28134147038B1E3872648893 /* AnalysisComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisComponents.swift; sourceTree = "<group>"; };
+		351EE86AE67DD541E20901CC /* MusaveraLab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusaveraLab.entitlements; sourceTree = "<group>"; };
+		4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPlayer.swift; sourceTree = "<group>"; };
+		5D7010759E3CE72A46D76413 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6D0BE121349F66D59ED4BD2A /* MusaveraLabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusaveraLabApp.swift; sourceTree = "<group>"; };
+		72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDashboard.swift; sourceTree = "<group>"; };
+		92C546425026A586D4AE6F60 /* TimelineComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineComponents.swift; sourceTree = "<group>"; };
+		A018FE4324BF125ABD274B2D /* AudioFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileStore.swift; sourceTree = "<group>"; };
+		B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportBar.swift; sourceTree = "<group>"; };
+		C5DD336EA101AD39E6141936 /* MusicBrowserSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrowserSidebar.swift; sourceTree = "<group>"; };
+		DBF41C8160D78F589E34CEE8 /* MusaveraKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MusaveraKit; path = ../..; sourceTree = SOURCE_ROOT; };
+		DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisJSONDocument.swift; sourceTree = "<group>"; };
+		E038E4851D68CBE647F8DF98 /* MusaveraLabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusaveraLabModel.swift; sourceTree = "<group>"; };
+		E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSelectionSheet.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		977874206CB93E56BD73BA4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3553AC3D8690FBDCEC66F53 /* MusaveraKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01615905EABEE2D5C93439D3 /* Visualizations */ = {
+			isa = PBXGroup;
+			children = (
+				92C546425026A586D4AE6F60 /* TimelineComponents.swift */,
+			);
+			path = Visualizations;
+			sourceTree = "<group>";
+		};
+		29800BCA3A37D96D264A5266 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				28134147038B1E3872648893 /* AnalysisComponents.swift */,
+				72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */,
+				5D7010759E3CE72A46D76413 /* ContentView.swift */,
+				C5DD336EA101AD39E6141936 /* MusicBrowserSidebar.swift */,
+				E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */,
+				B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5C6CC3829C1CFAA276F3EC9C = {
+			isa = PBXGroup;
+			children = (
+				CD691D72EA74C87BF3D616F5 /* MusaveraLab */,
+				6F326FABD5331BB995B41986 /* Packages */,
+				6143F35E9F4688A52B756DB4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5D907943F997C17C6829F95A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A018FE4324BF125ABD274B2D /* AudioFileStore.swift */,
+				4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		6143F35E9F4688A52B756DB4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				16850E396168613A82B4E05D /* MusaveraLab.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6F326FABD5331BB995B41986 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				DBF41C8160D78F589E34CEE8 /* MusaveraKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		9F3BF4EA07744FF279BBA3D0 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6D0BE121349F66D59ED4BD2A /* MusaveraLabApp.swift */,
+				E038E4851D68CBE647F8DF98 /* MusaveraLabModel.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CD691D72EA74C87BF3D616F5 /* MusaveraLab */ = {
+			isa = PBXGroup;
+			children = (
+				351EE86AE67DD541E20901CC /* MusaveraLab.entitlements */,
+				17F91F1BF6C6D59CC92807B9 /* Theme.swift */,
+				9F3BF4EA07744FF279BBA3D0 /* App */,
+				F7F79764B4E0D5C905588239 /* Documents */,
+				5D907943F997C17C6829F95A /* Services */,
+				29800BCA3A37D96D264A5266 /* Views */,
+				01615905EABEE2D5C93439D3 /* Visualizations */,
+			);
+			path = MusaveraLab;
+			sourceTree = "<group>";
+		};
+		F7F79764B4E0D5C905588239 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */,
+			);
+			path = Documents;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EB2D92BACB058B1FBE4D3EF2 /* MusaveraLab */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A95BEC55B4F4C2577B13035 /* Build configuration list for PBXNativeTarget "MusaveraLab" */;
+			buildPhases = (
+				CE074CFB82092D3783CAFD50 /* Sources */,
+				977874206CB93E56BD73BA4D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MusaveraLab;
+			packageProductDependencies = (
+				79D134AB9DE2AC7ECDA156A9 /* MusaveraKit */,
+			);
+			productName = MusaveraLab;
+			productReference = 16850E396168613A82B4E05D /* MusaveraLab.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		616A856774CD404816E91CA0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					EB2D92BACB058B1FBE4D3EF2 = {
+						DevelopmentTeam = YQZQG7N4WG;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A8185B12452914BDC34967F7 /* Build configuration list for PBXProject "MusaveraLab" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5C6CC3829C1CFAA276F3EC9C;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F7DC3FBA02C54B0465DB6775 /* XCLocalSwiftPackageReference "../.." */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6143F35E9F4688A52B756DB4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EB2D92BACB058B1FBE4D3EF2 /* MusaveraLab */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE074CFB82092D3783CAFD50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0F5DFB080DD500DF9A8B5FF /* AnalysisComponents.swift in Sources */,
+				4E9EB78FBA07F3AED856D197 /* AnalysisDashboard.swift in Sources */,
+				A91B6A70C878816A79A7C3AF /* AnalysisJSONDocument.swift in Sources */,
+				EC67369138AEA5397F184A95 /* AudioFileStore.swift in Sources */,
+				F17FAD96862797EAC998B10D /* ContentView.swift in Sources */,
+				2BA84BC4C0402FADE8E84A6F /* MusaveraLabApp.swift in Sources */,
+				24785B8BAB77C0EBC9A28DA1 /* MusaveraLabModel.swift in Sources */,
+				2AD8EE2019F19C3DC7536C8E /* MusicBrowserSidebar.swift in Sources */,
+				50E590E35281E47FBB31B57A /* MusicSelectionSheet.swift in Sources */,
+				A81A422116DAC9B8A6125471 /* PreviewPlayer.swift in Sources */,
+				E9A96DD35B7FDEF43189AA2A /* Theme.swift in Sources */,
+				D55BBD16F76645103279A0DC /* TimelineComponents.swift in Sources */,
+				F0D97C334B4F79CA294898F9 /* TransportBar.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7BCC3FF39830C9D6883CD43A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = YQZQG7N4WG;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		BA6F66BD215783BC54571F70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MusaveraLab/MusaveraLab.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Musavera Lab";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Musavera Lab uses Apple Music to search the catalog and play songs you choose.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudrankriyam.musaveralab;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DC3D19AEF2B3314DB1BCCF7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MusaveraLab/MusaveraLab.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Musavera Lab";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Musavera Lab uses Apple Music to search the catalog and play songs you choose.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudrankriyam.musaveralab;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FDAF4B23ABE8E5C8E47724E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = YQZQG7N4WG;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A95BEC55B4F4C2577B13035 /* Build configuration list for PBXNativeTarget "MusaveraLab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA6F66BD215783BC54571F70 /* Debug */,
+				DC3D19AEF2B3314DB1BCCF7D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A8185B12452914BDC34967F7 /* Build configuration list for PBXProject "MusaveraLab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BCC3FF39830C9D6883CD43A /* Debug */,
+				FDAF4B23ABE8E5C8E47724E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F7DC3FBA02C54B0465DB6775 /* XCLocalSwiftPackageReference "../.." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		79D134AB9DE2AC7ECDA156A9 /* MusaveraKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MusaveraKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 616A856774CD404816E91CA0 /* Project object */;
+}

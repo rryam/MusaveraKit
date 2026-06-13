@@ -150,6 +150,18 @@ MusaveraKit analyzes audio assets for musical characteristics. The packages are
 independent so apps can adopt either one, while remaining complementary for
 music discovery, playback, and visualization experiences.
 
+## Musavera Lab
+
+[`Examples/MusaveraLab`](Examples/MusaveraLab) is a signed macOS 27 sample app
+that composes first-party MusicKit with MusaveraKit. It searches Apple Music,
+shows catalog artwork, downloads a song's 30-second preview for local analysis,
+offers separate full-song playback, and renders synchronized key, rhythm,
+structure, pace, instrument, and loudness views. The complete native
+MusicUnderstanding result can also be exported as formatted JSON.
+
+The activity charts adapt from one to four columns, so a large window can show
+all four instrument activity timelines side by side.
+
 ## Development
 
 Select Xcode 27 if it is not already active:

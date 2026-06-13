@@ -1,0 +1,57 @@
+name: MusaveraLab
+
+options:
+  minimumXcodeGenVersion: 2.44.1
+  deploymentTarget:
+    macOS: "27.0"
+
+packages:
+  MusaveraKit:
+    path: ../..
+
+settings:
+  base:
+    CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: YES
+    DEVELOPMENT_TEAM: YQZQG7N4WG
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+    SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: YES
+    SWIFT_VERSION: 6.0
+
+targets:
+  MusaveraLab:
+    type: application
+    platform: macOS
+    sources:
+      - path: MusaveraLab
+    dependencies:
+      - package: MusaveraKit
+        product: MusaveraKit
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: MusaveraLab/MusaveraLab.entitlements
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        ENABLE_OUTGOING_NETWORK_CONNECTIONS: YES
+        ENABLE_PREVIEWS: YES
+        ENABLE_USER_SELECTED_FILES: readonly
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Musavera Lab
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.music
+        INFOPLIST_KEY_NSAppleMusicUsageDescription: Musavera Lab uses Apple Music to search the catalog and play songs you choose.
+        MARKETING_VERSION: 1.0
+        PRODUCT_BUNDLE_IDENTIFIER: com.rudrankriyam.musaveralab
+        PRODUCT_NAME: "$(TARGET_NAME)"
+
+schemes:
+  MusaveraLab:
+    build:
+      targets:
+        MusaveraLab: all
+    run:
+      config: Debug
+    archive:
+      config: Release
