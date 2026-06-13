@@ -9,6 +9,7 @@ struct MusicSelectionSheet: View {
     @State private var songs: [Song] = []
     @State private var isSearching = false
     @State private var searchMessage: String?
+    @State private var activeSearchID: UUID?
 
     var body: some View {
         NavigationStack {
@@ -68,22 +69,24 @@ struct MusicSelectionSheet: View {
             }
         }
         .frame(minWidth: 680, minHeight: 540)
-        .task {
-            if !model.isAuthorized {
-                await model.requestAuthorization()
-            }
-        }
         .task(id: SearchContext(query: query, isAuthorized: model.isAuthorized)) {
             await search()
         }
     }
 
     private func search() async {
+        let searchID = UUID()
+        activeSearchID = searchID
+        defer {
+            if activeSearchID == searchID {
+                isSearching = false
+            }
+        }
+
         let term = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard model.isAuthorized, !term.isEmpty else {
             songs = []
             searchMessage = nil
-            isSearching = false
             return
         }
 
@@ -99,15 +102,15 @@ struct MusicSelectionSheet: View {
             let response = try await request.response()
             try Task.checkCancellation()
 
+            guard activeSearchID == searchID else { return }
             songs = Array(response.songs)
             searchMessage = songs.isEmpty ? "Nothing matched “\(term)”." : nil
-            isSearching = false
         } catch is CancellationError {
             return
         } catch {
+            guard activeSearchID == searchID else { return }
             songs = []
             searchMessage = error.localizedDescription
-            isSearching = false
         }
     }
 }
