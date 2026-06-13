@@ -121,4 +121,3 @@ final class PreviewPlayer {
         return String(format: "%02d:%02d", Int(seconds) / 60, Int(seconds) % 60)
     }
 }
-
