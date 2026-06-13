@@ -35,10 +35,7 @@ struct ContentView: View {
             isPresented: $isImportingAudio,
             allowedContentTypes: [.audio]
         ) { result in
-            guard case .success(let url) = result else { return }
-            Task {
-                await model.analyzeLocalFile(at: url)
-            }
+            importAudio(from: result)
         }
         .alert(
             "Musavera Lab",
@@ -59,6 +56,20 @@ struct ContentView: View {
         }
         .task {
             model.prepare()
+        }
+    }
+
+    private func importAudio(from result: Result<URL, any Error>) {
+        guard case .success(let url) = result else { return }
+
+        let isAccessing = url.startAccessingSecurityScopedResource()
+        Task {
+            defer {
+                if isAccessing {
+                    url.stopAccessingSecurityScopedResource()
+                }
+            }
+            await model.analyzeLocalFile(at: url)
         }
     }
 }

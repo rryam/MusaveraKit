@@ -41,13 +41,6 @@ actor AudioFileStore {
     }
 
     func importFile(_ sourceURL: URL) throws -> URL {
-        let isAccessing = sourceURL.startAccessingSecurityScopedResource()
-        defer {
-            if isAccessing {
-                sourceURL.stopAccessingSecurityScopedResource()
-            }
-        }
-
         let destination = try destinationURL(
             identifier: UUID().uuidString,
             sourceURL: sourceURL,
