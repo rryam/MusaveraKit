@@ -1,0 +1,89 @@
+name: Bug report
+description: Report reproducible behavior in MusaveraKit
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. If it also reproduces with MusicUnderstanding directly, please file it with Apple through Feedback Assistant.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened?
+      placeholder: A concise description of the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include the smallest code sample and exact steps that reproduce the problem.
+      render: swift
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include relevant errors or logs. Remove tokens, signing data, and private media information.
+    validations:
+      required: true
+  - type: input
+    id: package
+    attributes:
+      label: MusaveraKit version
+      description: Provide a tag or commit SHA.
+      placeholder: main at abc1234
+    validations:
+      required: true
+  - type: input
+    id: xcode
+    attributes:
+      label: Xcode version and build
+      placeholder: Xcode 27.0 beta (17A...)
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and build
+      placeholder: macOS 27.0 beta (26A...)
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options:
+        - iOS
+        - macOS
+        - tvOS
+        - watchOS
+        - visionOS
+    validations:
+      required: true
+  - type: input
+    id: feedback
+    attributes:
+      label: Feedback Assistant number
+      description: Add an FB number when the issue also affects Apple's framework.
+      placeholder: FB12345678
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I tested the latest `main` branch or explained why I could not.
+          required: true
+        - label: I removed credentials, signing data, and private media information.
+          required: true

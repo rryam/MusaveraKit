@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support guide
+    url: https://github.com/rryam/MusaveraKit/blob/main/SUPPORT.md
+    about: Choose the right place for package, framework, and security reports.
+  - name: Apple Feedback Assistant
+    url: https://feedbackassistant.apple.com
+    about: Report issues that reproduce when using MusicUnderstanding directly.
