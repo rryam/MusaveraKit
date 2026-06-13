@@ -117,6 +117,17 @@ dependencies: [
 .product(name: "MusaveraKit", package: "MusaveraKit")
 ```
 
+## Musavera Lab
+
+[`Examples/MusaveraLab`](Examples/MusaveraLab) is a signed macOS 27 sample app
+that composes first-party MusicKit with MusaveraKit. It searches Apple Music,
+shows catalog artwork, downloads a song's 30-second preview for local analysis,
+offers separate full-song playback, and renders synchronized key, rhythm,
+structure, pace, instrument, and loudness views.
+
+The activity charts adapt from one to four columns, so a large window can show
+all four instrument activity timelines side by side.
+
 ## Current Status
 
 This is a beta SDK package. It is intentionally small and compiler-first while Apple finishes documenting the MusicUnderstanding framework.
