@@ -69,13 +69,11 @@ struct ContentView: View {
             if newValue == .live {
                 model.pauseAllPlayback()
             } else if oldValue == .live {
-                liveStreamModel.finishIfNeeded()
-                liveStreamModel.pauseRecordingPlayback()
+                liveStreamModel.deactivate()
             }
         }
         .onDisappear {
-            liveStreamModel.finishIfNeeded()
-            liveStreamModel.pauseRecordingPlayback()
+            liveStreamModel.deactivate()
         }
     }
 

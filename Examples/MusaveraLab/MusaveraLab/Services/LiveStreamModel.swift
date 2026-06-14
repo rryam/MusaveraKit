@@ -29,6 +29,7 @@ final class LiveStreamModel {
     @ObservationIgnored private var analysisTask: Task<Void, Never>?
     @ObservationIgnored private var loudnessTask: Task<Void, Never>?
     @ObservationIgnored private var recordingLoadTask: Task<Void, Never>?
+    @ObservationIgnored private var startRequestID: UUID?
     @ObservationIgnored private var tapInstalled = false
     @ObservationIgnored private var capturedFrameCount: Int64 = 0
 
@@ -100,9 +101,17 @@ final class LiveStreamModel {
         guard state == .idle || state == .complete else { return }
 
         prepareForNewCapture()
+        let requestID = UUID()
+        startRequestID = requestID
         state = .requestingPermission
 
-        guard await requestMicrophoneAccess() else {
+        let hasMicrophoneAccess = await requestMicrophoneAccess()
+        guard startRequestID == requestID, state == .requestingPermission else {
+            return
+        }
+        startRequestID = nil
+
+        guard hasMicrophoneAccess else {
             fail(with: LiveStreamError.microphonePermissionDenied)
             return
         }
@@ -126,9 +135,17 @@ final class LiveStreamModel {
         }
     }
 
-    func finishIfNeeded() {
-        if state == .listening {
+    func deactivate() {
+        pauseRecordingPlayback()
+
+        switch state {
+        case .requestingPermission:
+            startRequestID = nil
+            state = .idle
+        case .listening:
             stop()
+        default:
+            break
         }
     }
 
@@ -337,6 +354,7 @@ final class LiveStreamModel {
     private func cancelActiveSession(retainRecording: Bool) {
         let session = streamingSession
 
+        startRequestID = nil
         analysisTask?.cancel()
         loudnessTask?.cancel()
         analysisTask = nil
