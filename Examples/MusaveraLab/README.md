@@ -7,6 +7,9 @@ Musavera Lab composes two Apple frameworks without coupling their wrapper librar
 3. `MusaveraKit` analyzes the local asset with `MusicUnderstanding`.
 4. `AVPlayer`, SwiftUI, and Swift Charts keep playback and analysis visuals in sync.
 5. `ApplicationMusicPlayer` remains available as a separate full-song playback path.
+6. A separate Live Stream workspace sends microphone PCM buffers to
+   `MusaveraStreamingSession`, updates loudness while listening, and completes
+   the full musical analysis after capture stops.
 
 MusadoraKit is intentionally not a dependency. MusadoraKit and MusaveraKit remain focused siblings, while this app demonstrates how a product can compose their underlying Apple frameworks.
 
@@ -38,6 +41,9 @@ MusadoraKit is intentionally not a dependency. MusadoraKit and MusaveraKit remai
 - [x] Reject protected assets before analysis.
 - [x] Build `AVURLAsset` with precise timing enabled.
 - [x] Load the same asset into preview playback and MusaveraKit analysis.
+- [x] Capture microphone input with the sendable macOS 27 audio tap.
+- [x] Feed immutable PCM buffers into an asynchronous streaming provider.
+- [x] Stop preview and full-song playback before live microphone analysis.
 - [ ] Exercise a preview with redirects and a non-`m4a` extension.
 
 ### Understanding
@@ -45,6 +51,9 @@ MusadoraKit is intentionally not a dependency. MusadoraKit and MusaveraKit remai
 - [x] Analyze key, rhythm, structure, pace, instrument activity, and loudness.
 - [x] Use MusaveraKit's key and instrument convenience helpers.
 - [x] Keep analysis work off the UI while exposing a simple app state machine.
+- [x] Surface loudness results while microphone audio is still arriving.
+- [x] Finish key, rhythm, structure, pace, instruments, and final loudness when
+  the live stream closes.
 - [ ] Add cancellation when a user chooses a different track mid-analysis.
 - [x] Export the complete native MusicUnderstanding result as formatted JSON.
 
@@ -55,6 +64,9 @@ MusadoraKit is intentionally not a dependency. MusadoraKit and MusaveraKit remai
 - [x] Render pace, instrument ranges, activity curves, and loudness.
 - [x] Make the timeline seekable.
 - [x] Support local audio as a generic fallback.
+- [x] Separate Analyze Music and Live Stream into native sidebar workspaces.
+- [x] Show a rolling 30-second realtime loudness chart and input diagnostics.
+- [x] Export completed live-stream analysis as formatted JSON.
 - [x] Adapt activity charts from one to four columns as the window grows.
 - [ ] Add a compact mode for smaller windows.
 - [ ] Add reduced-motion tuning and VoiceOver summaries for every chart.
@@ -80,6 +92,21 @@ Then open `MusaveraLab.xcodeproj` with Xcode 27.
 
 MusicKit is enabled as an App Service for the bundle identifier. It does not
 add a MusicKit key to the app's code-signing entitlements.
+
+The Live Stream workspace requires the App Sandbox audio-input entitlement and
+microphone usage description. macOS asks for permission the first time capture
+starts.
+
+## Realtime Boundary
+
+Music Understanding accepts an asynchronous stream of read-only PCM buffers.
+Its loudness sequence can update a meter while those buffers arrive. The
+session's aggregate result, including key, rhythm, structure, pace, and
+instrument activity, completes after the provider finishes.
+
+Musavera Lab uses the microphone for that live PCM path. MusicKit's
+`ApplicationMusicPlayer` does not expose the decoded PCM of a full Apple Music
+song, so the app does not claim to analyze protected full-song playback.
 
 ## Verified Track
 

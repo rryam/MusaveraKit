@@ -3,12 +3,17 @@ import SwiftUI
 
 enum LabTheme {
     static let background = Color(nsColor: .windowBackgroundColor)
-    static let card = Color(nsColor: .controlBackgroundColor)
-    static let cardBorder = Color(nsColor: .separatorColor).opacity(0.45)
+    static let surface = Color(nsColor: .controlBackgroundColor).opacity(0.72)
+    static let raisedSurface = Color(nsColor: .textBackgroundColor).opacity(0.58)
+    static let separator = Color(nsColor: .separatorColor).opacity(0.34)
+    static let accent = Color(nsColor: .systemPink)
     static let playhead = Color.primary.opacity(0.62)
-    static let structure = Color.blue
-    static let segment = Color.teal
-    static let phrase = Color.mint
-    static let pace = Color.orange
-    static let loudness = Color.indigo
+    static let structure = accent
+    static let segment = accent.opacity(0.72)
+    static let phrase = accent.opacity(0.44)
+    static let pace = accent
+    static let loudness = accent
+
+    static let contentWidth: CGFloat = 1_360
+    static let sectionRadius: CGFloat = 14
 }

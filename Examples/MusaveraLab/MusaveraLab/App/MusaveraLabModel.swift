@@ -55,17 +55,19 @@ final class MusaveraLabModel {
     var analysis: MusaveraAnalysis?
     var workState: WorkState = .idle
     var errorMessage: String?
-    private(set) var fullSongPlaybackStatus = ApplicationMusicPlayer.shared.state.playbackStatus
+    private(set) var fullSongPlaybackStatus: MusicKit.MusicPlayer.PlaybackStatus = .stopped
     private(set) var isStartingFullSong = false
 
     let previewPlayer = PreviewPlayer()
 
     @ObservationIgnored private let fileStore = AudioFileStore()
     @ObservationIgnored private let fullSongPlayer = ApplicationMusicPlayer.shared
+    @ObservationIgnored private let fullSongState = ApplicationMusicPlayer.shared.state
     @ObservationIgnored private var fullSongStateTask: Task<Void, Never>?
     @ObservationIgnored private var pendingFullSongPlayID: UUID?
 
     init() {
+        fullSongPlaybackStatus = fullSongState.playbackStatus
         observeFullSongState()
     }
 
@@ -203,6 +205,7 @@ final class MusaveraLabModel {
         do {
             fullSongPlayer.queue = ApplicationMusicPlayer.Queue(for: [selectedSong])
             try await fullSongPlayer.play()
+            fullSongPlaybackStatus = fullSongState.playbackStatus
             guard pendingFullSongPlayID == requestID else {
                 fullSongPlayer.pause()
                 return
@@ -211,6 +214,11 @@ final class MusaveraLabModel {
             guard pendingFullSongPlayID == requestID else { return }
             errorMessage = "Full-song playback could not start: \(error.localizedDescription)"
         }
+    }
+
+    func pauseAllPlayback() {
+        previewPlayer.pause()
+        cancelFullSongPlayback()
     }
 
     func reset() {
@@ -291,10 +299,10 @@ final class MusaveraLabModel {
     }
 
     private func observeFullSongState() {
-        let player = fullSongPlayer
+        let state = fullSongState
         fullSongStateTask = Task { @MainActor [weak self] in
             let statuses = Observations {
-                player.state.playbackStatus
+                state.playbackStatus
             }
 
             for await status in statuses {

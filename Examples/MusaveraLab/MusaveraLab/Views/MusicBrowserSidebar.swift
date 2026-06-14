@@ -3,31 +3,70 @@ import SwiftUI
 
 struct MusicBrowserSidebar: View {
     @Environment(MusaveraLabModel.self) private var model
+    @Environment(LiveStreamModel.self) private var liveStreamModel
+    @Binding var selection: LabSection
     let onChooseMusic: () -> Void
     let onImportAudio: () -> Void
 
     var body: some View {
-        List {
-            Section("Apple Music") {
-                if model.isAuthorized {
-                    Label("Connected", systemImage: "checkmark.circle.fill")
-                        .foregroundStyle(.secondary)
-                } else {
-                    AuthorizationRow()
+        List(selection: $selection) {
+            Section("Workspace") {
+                ForEach(LabSection.allCases) { section in
+                    Label(section.title, systemImage: section.systemImage)
+                        .tag(section)
                 }
-
-                Button(action: onChooseMusic) {
-                    Label("Choose Music", systemImage: "music.note.list")
-                }
-                .disabled(model.isBusy)
             }
 
-            Section("On This Mac") {
-                Button(action: onImportAudio) {
-                    Label("Open Audio File", systemImage: "folder")
+            if selection == .analyze {
+                Section("Sources") {
+                    Button(action: onChooseMusic) {
+                        SidebarActionLabel(
+                            title: "Search Apple Music",
+                            systemImage: "magnifyingglass"
+                        )
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(model.isBusy)
+
+                    Button(action: onImportAudio) {
+                        SidebarActionLabel(
+                            title: "Open Audio File",
+                            systemImage: "folder"
+                        )
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(model.isBusy)
                 }
-                .buttonStyle(.plain)
-                .disabled(model.isBusy)
+
+                Section("Apple Music") {
+                    if model.isAuthorized {
+                        Label("Connected", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Button {
+                            Task {
+                                await model.requestAuthorization()
+                            }
+                        } label: {
+                            Label("Connect", systemImage: "person.crop.circle.badge.plus")
+                        }
+                        .disabled(model.isBusy)
+                    }
+                }
+            } else {
+                Section("Microphone") {
+                    Label(
+                        liveStreamModel.state.title,
+                        systemImage: liveStreamModel.state.systemImage
+                    )
+                    .foregroundStyle(.secondary)
+
+                    Label("Loudness while listening", systemImage: "waveform")
+                        .foregroundStyle(.secondary)
+
+                    Label("Full analysis after stop", systemImage: "checkmark.circle")
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .listStyle(.sidebar)
@@ -35,27 +74,19 @@ struct MusicBrowserSidebar: View {
     }
 }
 
-private struct AuthorizationRow: View {
-    @Environment(MusaveraLabModel.self) private var model
+private struct SidebarActionLabel: View {
+    let title: String
+    let systemImage: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Label("Connect to search", systemImage: "music.note")
-                .font(.headline)
-
-            Text("Connect to search the catalog and play full songs. Preview analysis stays on this Mac.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-
-            Button("Connect Apple Music") {
-                Task {
-                    await model.requestAuthorization()
-                }
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(model.isBusy)
+        Label {
+            Text(title)
+                .foregroundStyle(.primary)
+        } icon: {
+            Image(systemName: systemImage)
+                .foregroundStyle(LabTheme.accent)
         }
-        .padding(.vertical, 4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
     }
 }

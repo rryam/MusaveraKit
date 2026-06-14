@@ -16,7 +16,7 @@ struct ArtworkView: View {
                     .scaledToFill()
             default:
                 ZStack {
-                    LabTheme.card
+                    LabTheme.raisedSurface
 
                     Image(systemName: "music.note")
                         .font(.system(size: size * 0.34, weight: .semibold))
@@ -28,7 +28,7 @@ struct ArtworkView: View {
         .clipShape(RoundedRectangle(cornerRadius: size * 0.18, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: size * 0.18, style: .continuous)
-                .stroke(LabTheme.cardBorder)
+                .stroke(LabTheme.separator)
         }
     }
 }
@@ -39,14 +39,18 @@ struct AnalysisTile<Content: View>: View {
     @ViewBuilder let content: Content
 
     var body: some View {
-        GroupBox {
-            content
-                .frame(maxWidth: .infinity)
-                .padding(.top, 6)
-        } label: {
+        VStack(alignment: .leading, spacing: 12) {
             Label(title, systemImage: systemImage)
                 .font(.headline)
+
+            content
+                .frame(maxWidth: .infinity)
         }
+        .padding(16)
+        .background(
+            LabTheme.surface,
+            in: RoundedRectangle(cornerRadius: LabTheme.sectionRadius, style: .continuous)
+        )
         .accessibilityElement(children: .contain)
     }
 }

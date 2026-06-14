@@ -7,6 +7,11 @@ and releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Added
+
+- Streaming PCM analysis through `MusaveraStreamingSession`, including
+  realtime loudness results and final aggregate analysis.
+
 ## 0.1.0 - 2026-06-13
 
 ### Added
