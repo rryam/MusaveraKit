@@ -7,39 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21DA8B957D4C23AF4896CB30 /* LiveStreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773251A88F78F71EF655F53F /* LiveStreamView.swift */; };
 		24785B8BAB77C0EBC9A28DA1 /* MusaveraLabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E038E4851D68CBE647F8DF98 /* MusaveraLabModel.swift */; };
 		2AD8EE2019F19C3DC7536C8E /* MusicBrowserSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DD336EA101AD39E6141936 /* MusicBrowserSidebar.swift */; };
 		2BA84BC4C0402FADE8E84A6F /* MusaveraLabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0BE121349F66D59ED4BD2A /* MusaveraLabApp.swift */; };
 		4E9EB78FBA07F3AED856D197 /* AnalysisDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */; };
 		50E590E35281E47FBB31B57A /* MusicSelectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */; };
+		68E36C0E62FDBAC2EF3DF7F3 /* LiveStreamError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70B3C1E29572AE441DE534 /* LiveStreamError.swift */; };
+		740A41F026B23CD3EC530064 /* LiveLoudnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4B8CF7D3D8C20A2C53792E /* LiveLoudnessView.swift */; };
+		7B604FAF786BE94A91F85BE3 /* LabSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57F6E67F40B939D10D2B323 /* LabSection.swift */; };
+		A02CD915DDE930A7BF199CB3 /* LiveStreamHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E55CEC44C91AC4EB8A3E9 /* LiveStreamHeader.swift */; };
+		A7BDBEE7E6AF9943011DA9F2 /* LiveFinalAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4496F1324C2312872AC5DA68 /* LiveFinalAnalysisView.swift */; };
 		A81A422116DAC9B8A6125471 /* PreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */; };
 		A91B6A70C878816A79A7C3AF /* AnalysisJSONDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */; };
 		B0F5DFB080DD500DF9A8B5FF /* AnalysisComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28134147038B1E3872648893 /* AnalysisComponents.swift */; };
+		CC1D83FF672A25C9BFC2D5C9 /* LiveStreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9563903791411B1D985ED35 /* LiveStreamModel.swift */; };
 		D55BBD16F76645103279A0DC /* TimelineComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C546425026A586D4AE6F60 /* TimelineComponents.swift */; };
 		E3553AC3D8690FBDCEC66F53 /* MusaveraKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79D134AB9DE2AC7ECDA156A9 /* MusaveraKit */; };
 		E9A96DD35B7FDEF43189AA2A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F91F1BF6C6D59CC92807B9 /* Theme.swift */; };
 		EC67369138AEA5397F184A95 /* AudioFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018FE4324BF125ABD274B2D /* AudioFileStore.swift */; };
 		F0D97C334B4F79CA294898F9 /* TransportBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */; };
 		F17FAD96862797EAC998B10D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7010759E3CE72A46D76413 /* ContentView.swift */; };
+		F702E58D57C0246CCFE6821C /* LiveStreamState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C40DF98E80114E1B6B9D39 /* LiveStreamState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		16850E396168613A82B4E05D /* MusaveraLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusaveraLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		17C40DF98E80114E1B6B9D39 /* LiveStreamState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamState.swift; sourceTree = "<group>"; };
 		17F91F1BF6C6D59CC92807B9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		28134147038B1E3872648893 /* AnalysisComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisComponents.swift; sourceTree = "<group>"; };
 		351EE86AE67DD541E20901CC /* MusaveraLab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusaveraLab.entitlements; sourceTree = "<group>"; };
+		4496F1324C2312872AC5DA68 /* LiveFinalAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveFinalAnalysisView.swift; sourceTree = "<group>"; };
 		4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPlayer.swift; sourceTree = "<group>"; };
 		5D7010759E3CE72A46D76413 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6D0BE121349F66D59ED4BD2A /* MusaveraLabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusaveraLabApp.swift; sourceTree = "<group>"; };
+		701E55CEC44C91AC4EB8A3E9 /* LiveStreamHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamHeader.swift; sourceTree = "<group>"; };
 		72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDashboard.swift; sourceTree = "<group>"; };
+		773251A88F78F71EF655F53F /* LiveStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamView.swift; sourceTree = "<group>"; };
+		7F4B8CF7D3D8C20A2C53792E /* LiveLoudnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveLoudnessView.swift; sourceTree = "<group>"; };
 		92C546425026A586D4AE6F60 /* TimelineComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineComponents.swift; sourceTree = "<group>"; };
 		A018FE4324BF125ABD274B2D /* AudioFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileStore.swift; sourceTree = "<group>"; };
 		B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportBar.swift; sourceTree = "<group>"; };
+		BF70B3C1E29572AE441DE534 /* LiveStreamError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamError.swift; sourceTree = "<group>"; };
 		C5DD336EA101AD39E6141936 /* MusicBrowserSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrowserSidebar.swift; sourceTree = "<group>"; };
+		C9563903791411B1D985ED35 /* LiveStreamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamModel.swift; sourceTree = "<group>"; };
 		DBF41C8160D78F589E34CEE8 /* MusaveraKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MusaveraKit; path = ../..; sourceTree = SOURCE_ROOT; };
 		DE7DEA2C229BDA2A4B85CAAA /* AnalysisJSONDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisJSONDocument.swift; sourceTree = "<group>"; };
 		E038E4851D68CBE647F8DF98 /* MusaveraLabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusaveraLabModel.swift; sourceTree = "<group>"; };
 		E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSelectionSheet.swift; sourceTree = "<group>"; };
+		F57F6E67F40B939D10D2B323 /* LabSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +84,10 @@
 				28134147038B1E3872648893 /* AnalysisComponents.swift */,
 				72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */,
 				5D7010759E3CE72A46D76413 /* ContentView.swift */,
+				4496F1324C2312872AC5DA68 /* LiveFinalAnalysisView.swift */,
+				7F4B8CF7D3D8C20A2C53792E /* LiveLoudnessView.swift */,
+				701E55CEC44C91AC4EB8A3E9 /* LiveStreamHeader.swift */,
+				773251A88F78F71EF655F53F /* LiveStreamView.swift */,
 				C5DD336EA101AD39E6141936 /* MusicBrowserSidebar.swift */,
 				E2965F30D5C9A008DC2AFD30 /* MusicSelectionSheet.swift */,
 				B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */,
@@ -88,6 +108,9 @@
 			isa = PBXGroup;
 			children = (
 				A018FE4324BF125ABD274B2D /* AudioFileStore.swift */,
+				BF70B3C1E29572AE441DE534 /* LiveStreamError.swift */,
+				C9563903791411B1D985ED35 /* LiveStreamModel.swift */,
+				17C40DF98E80114E1B6B9D39 /* LiveStreamState.swift */,
 				4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */,
 			);
 			path = Services;
@@ -112,6 +135,7 @@
 		9F3BF4EA07744FF279BBA3D0 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				F57F6E67F40B939D10D2B323 /* LabSection.swift */,
 				6D0BE121349F66D59ED4BD2A /* MusaveraLabApp.swift */,
 				E038E4851D68CBE647F8DF98 /* MusaveraLabModel.swift */,
 			);
@@ -209,6 +233,14 @@
 				A91B6A70C878816A79A7C3AF /* AnalysisJSONDocument.swift in Sources */,
 				EC67369138AEA5397F184A95 /* AudioFileStore.swift in Sources */,
 				F17FAD96862797EAC998B10D /* ContentView.swift in Sources */,
+				7B604FAF786BE94A91F85BE3 /* LabSection.swift in Sources */,
+				A7BDBEE7E6AF9943011DA9F2 /* LiveFinalAnalysisView.swift in Sources */,
+				740A41F026B23CD3EC530064 /* LiveLoudnessView.swift in Sources */,
+				68E36C0E62FDBAC2EF3DF7F3 /* LiveStreamError.swift in Sources */,
+				A02CD915DDE930A7BF199CB3 /* LiveStreamHeader.swift in Sources */,
+				CC1D83FF672A25C9BFC2D5C9 /* LiveStreamModel.swift in Sources */,
+				F702E58D57C0246CCFE6821C /* LiveStreamState.swift in Sources */,
+				21DA8B957D4C23AF4896CB30 /* LiveStreamView.swift in Sources */,
 				2BA84BC4C0402FADE8E84A6F /* MusaveraLabApp.swift in Sources */,
 				24785B8BAB77C0EBC9A28DA1 /* MusaveraLabModel.swift in Sources */,
 				2AD8EE2019F19C3DC7536C8E /* MusicBrowserSidebar.swift in Sources */,
@@ -300,6 +332,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_AUDIO_INPUT = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
@@ -308,6 +341,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Musavera Lab";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Musavera Lab uses Apple Music to search the catalog and play songs you choose.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Musavera Lab uses the microphone to analyze live audio on this Mac.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -328,6 +362,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_AUDIO_INPUT = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
@@ -336,6 +371,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Musavera Lab";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Musavera Lab uses Apple Music to search the catalog and play songs you choose.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Musavera Lab uses the microphone to analyze live audio on this Mac.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
