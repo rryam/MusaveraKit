@@ -54,7 +54,7 @@ Add MusaveraKit with Swift Package Manager:
 dependencies: [
     .package(
         url: "https://github.com/rryam/MusaveraKit.git",
-        from: "0.1.0"
+        from: "0.2.0"
     )
 ]
 ```
