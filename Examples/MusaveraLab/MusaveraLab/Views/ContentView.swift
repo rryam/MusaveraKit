@@ -3,12 +3,15 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     @Environment(MusaveraLabModel.self) private var model
+    @Environment(LiveStreamModel.self) private var liveStreamModel
+    @State private var selection: LabSection = .analyze
     @State private var isImportingAudio = false
     @State private var isChoosingMusic = false
 
     var body: some View {
         NavigationSplitView {
             MusicBrowserSidebar(
+                selection: $selection,
                 onChooseMusic: {
                     isChoosingMusic = true
                 },
@@ -18,14 +21,19 @@ struct ContentView: View {
             )
             .navigationSplitViewColumnWidth(min: 240, ideal: 270, max: 340)
         } detail: {
-            DetailContentView(
-                onChooseMusic: {
-                    isChoosingMusic = true
-                },
-                onImportAudio: {
-                    isImportingAudio = true
-                }
-            )
+            switch selection {
+            case .analyze:
+                AnalysisDetailContentView(
+                    onChooseMusic: {
+                        isChoosingMusic = true
+                    },
+                    onImportAudio: {
+                        isImportingAudio = true
+                    }
+                )
+            case .live:
+                LiveStreamView()
+            }
         }
         .navigationSplitViewStyle(.balanced)
         .sheet(isPresented: $isChoosingMusic) {
@@ -57,6 +65,16 @@ struct ContentView: View {
         .task {
             model.prepare()
         }
+        .onChange(of: selection) { oldValue, newValue in
+            if newValue == .live {
+                model.pauseAllPlayback()
+            } else if oldValue == .live {
+                liveStreamModel.finishIfNeeded()
+            }
+        }
+        .onDisappear {
+            liveStreamModel.finishIfNeeded()
+        }
     }
 
     private func importAudio(from result: Result<URL, any Error>) {
@@ -74,7 +92,7 @@ struct ContentView: View {
     }
 }
 
-private struct DetailContentView: View {
+private struct AnalysisDetailContentView: View {
     @Environment(MusaveraLabModel.self) private var model
 
     let onChooseMusic: () -> Void

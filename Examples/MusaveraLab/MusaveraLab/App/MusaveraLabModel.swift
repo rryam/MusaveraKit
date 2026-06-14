@@ -213,6 +213,11 @@ final class MusaveraLabModel {
         }
     }
 
+    func pauseAllPlayback() {
+        previewPlayer.pause()
+        cancelFullSongPlayback()
+    }
+
     func reset() {
         previewPlayer.unload()
         cancelFullSongPlayback()

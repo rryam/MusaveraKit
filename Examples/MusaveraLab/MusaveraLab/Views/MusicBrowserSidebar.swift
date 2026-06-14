@@ -3,31 +3,68 @@ import SwiftUI
 
 struct MusicBrowserSidebar: View {
     @Environment(MusaveraLabModel.self) private var model
+    @Environment(LiveStreamModel.self) private var liveStreamModel
+    @Binding var selection: LabSection
     let onChooseMusic: () -> Void
     let onImportAudio: () -> Void
 
     var body: some View {
-        List {
-            Section("Apple Music") {
-                if model.isAuthorized {
-                    Label("Connected", systemImage: "checkmark.circle.fill")
-                        .foregroundStyle(.secondary)
-                } else {
-                    AuthorizationRow()
-                }
+        List(selection: $selection) {
+            Section("Workspace") {
+                ForEach(LabSection.allCases) { section in
+                    VStack(alignment: .leading, spacing: 2) {
+                        Label(section.title, systemImage: section.systemImage)
+                            .font(.headline)
 
-                Button(action: onChooseMusic) {
-                    Label("Choose Music", systemImage: "music.note.list")
+                        Text(section.subtitle)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(2)
+                            .padding(.leading, 24)
+                    }
+                    .padding(.vertical, 3)
+                    .tag(section)
                 }
-                .disabled(model.isBusy)
             }
 
-            Section("On This Mac") {
-                Button(action: onImportAudio) {
-                    Label("Open Audio File", systemImage: "folder")
+            if selection == .analyze {
+                Section("Apple Music") {
+                    if model.isAuthorized {
+                        Label("Connected", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        AuthorizationRow()
+                    }
+
+                    Button(action: onChooseMusic) {
+                        Label("Choose Music", systemImage: "music.note.list")
+                    }
+                    .disabled(model.isBusy)
                 }
-                .buttonStyle(.plain)
-                .disabled(model.isBusy)
+
+                Section("On This Mac") {
+                    Button(action: onImportAudio) {
+                        Label("Open Audio File", systemImage: "folder")
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(model.isBusy)
+                }
+            } else {
+                Section("Microphone") {
+                    Label(
+                        liveStreamModel.state.title,
+                        systemImage: liveStreamModel.state.systemImage
+                    )
+                    .foregroundStyle(.secondary)
+
+                    Label("Loudness updates live", systemImage: "waveform")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+
+                    Label("Music analysis after stop", systemImage: "checkmark.circle")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .listStyle(.sidebar)
