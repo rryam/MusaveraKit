@@ -114,6 +114,27 @@ Passing an empty option set throws `MusaveraKitError.emptyAnalysisSet`. A
 focused helper throws `MusaveraKitError.missingResult` if the framework does not
 return its requested result.
 
+## Analyze Streaming Audio
+
+Create a session from any nonthrowing asynchronous sequence of read-only PCM
+buffers:
+
+```swift
+let session = MusaveraStreamingSession(audioProvider: audioBuffers)
+
+async let analysis = session.analyze()
+
+for try await loudness in session.loudnessResults {
+    updateMeter(with: loudness)
+}
+
+let completedAnalysis = try await analysis
+```
+
+Loudness results arrive while the provider yields audio. The complete
+`MusaveraAnalysis`, including key, rhythm, structure, pace, and instrument
+activity, becomes available after the provider finishes.
+
 ## Timeline Helpers
 
 MusaveraKit adds small conveniences for playback-synchronized interfaces:
@@ -154,7 +175,9 @@ that composes first-party MusicKit with MusaveraKit. It searches Apple Music,
 shows catalog artwork, downloads a song's 30-second preview for local analysis,
 offers separate full-song playback, and renders synchronized key, rhythm,
 structure, pace, instrument, and loudness views. The complete native
-MusicUnderstanding result can also be exported as formatted JSON.
+MusicUnderstanding result can also be exported as formatted JSON. Its Live
+Stream workspace analyzes microphone PCM, draws realtime loudness, and
+completes the remaining musical analysis when capture stops.
 
 The activity charts adapt from one to four columns, so a large window can show
 all four instrument activity timelines side by side.
