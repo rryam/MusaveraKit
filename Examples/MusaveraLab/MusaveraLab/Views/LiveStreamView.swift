@@ -17,10 +17,6 @@ struct LiveStreamView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     LiveStreamHeader()
 
-                    if model.recordingURL != nil {
-                        LiveRecordingTransport()
-                    }
-
                     if let errorMessage = model.errorMessage {
                         LiveStreamErrorBanner(
                             message: errorMessage,
@@ -54,6 +50,16 @@ struct LiveStreamView: View {
             reduceMotion ? nil : .smooth(duration: 0.3),
             value: model.state
         )
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            if model.recordingURL != nil {
+                LiveRecordingTransport()
+                    .transition(
+                        reduceMotion
+                            ? .opacity
+                            : .opacity.combined(with: .move(edge: .bottom))
+                    )
+            }
+        }
         .fileExporter(
             isPresented: $isExporting,
             document: exportDocument,

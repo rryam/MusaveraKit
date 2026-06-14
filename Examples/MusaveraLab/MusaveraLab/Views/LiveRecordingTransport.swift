@@ -7,35 +7,28 @@ struct LiveRecordingTransport: View {
     var body: some View {
         @Bindable var player = model.recordingPlayer
 
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: 16) {
-                recordingIdentity
+        FloatingTransportSurface {
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 16) {
+                    recordingIdentity
 
-                Divider()
-                    .frame(height: 34)
+                    Divider()
+                        .frame(height: 34)
 
-                playbackControls(player: player)
+                    playbackControls(player: player)
 
-                Divider()
-                    .frame(height: 34)
+                    Divider()
+                        .frame(height: 34)
 
-                volumeControl(player: player)
+                    volumeControl(player: player)
+                }
+
+                VStack(alignment: .leading, spacing: 14) {
+                    recordingIdentity
+                    playbackControls(player: player)
+                    volumeControl(player: player)
+                }
             }
-
-            VStack(alignment: .leading, spacing: 14) {
-                recordingIdentity
-                playbackControls(player: player)
-                volumeControl(player: player)
-            }
-        }
-        .padding(16)
-        .background(
-            LabTheme.raisedSurface,
-            in: RoundedRectangle(cornerRadius: LabTheme.sectionRadius, style: .continuous)
-        )
-        .overlay {
-            RoundedRectangle(cornerRadius: LabTheme.sectionRadius, style: .continuous)
-                .stroke(LabTheme.separator)
         }
     }
 
