@@ -17,6 +17,7 @@
 		6E85767F9490B545C1D4EF21 /* AnalysisResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFA482A340B55F54FCF30BC /* AnalysisResultsView.swift */; };
 		740A41F026B23CD3EC530064 /* LiveLoudnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4B8CF7D3D8C20A2C53792E /* LiveLoudnessView.swift */; };
 		7B604FAF786BE94A91F85BE3 /* LabSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57F6E67F40B939D10D2B323 /* LabSection.swift */; };
+		8C37156321C220D60A4BB470 /* Musavera Lab.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8647D544CED10403821B344A /* Musavera Lab.icon */; };
 		A02CD915DDE930A7BF199CB3 /* LiveStreamHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E55CEC44C91AC4EB8A3E9 /* LiveStreamHeader.swift */; };
 		A7BDBEE7E6AF9943011DA9F2 /* LiveFinalAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4496F1324C2312872AC5DA68 /* LiveFinalAnalysisView.swift */; };
 		A81A422116DAC9B8A6125471 /* PreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D4276646810C2DA45A3E8 /* PreviewPlayer.swift */; };
@@ -49,6 +50,7 @@
 		72FE5CB39CDA7B494D1DE3A4 /* AnalysisDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDashboard.swift; sourceTree = "<group>"; };
 		773251A88F78F71EF655F53F /* LiveStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamView.swift; sourceTree = "<group>"; };
 		7F4B8CF7D3D8C20A2C53792E /* LiveLoudnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveLoudnessView.swift; sourceTree = "<group>"; };
+		8647D544CED10403821B344A /* Musavera Lab.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = "Musavera Lab.icon"; sourceTree = "<group>"; };
 		92C546425026A586D4AE6F60 /* TimelineComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineComponents.swift; sourceTree = "<group>"; };
 		A018FE4324BF125ABD274B2D /* AudioFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileStore.swift; sourceTree = "<group>"; };
 		B6ECFFBEFCF66FA2E2FAB48D /* TransportBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportBar.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		CD691D72EA74C87BF3D616F5 /* MusaveraLab */ = {
 			isa = PBXGroup;
 			children = (
+				8647D544CED10403821B344A /* Musavera Lab.icon */,
 				351EE86AE67DD541E20901CC /* MusaveraLab.entitlements */,
 				17F91F1BF6C6D59CC92807B9 /* Theme.swift */,
 				9F3BF4EA07744FF279BBA3D0 /* App */,
@@ -181,6 +184,7 @@
 			buildConfigurationList = 4A95BEC55B4F4C2577B13035 /* Build configuration list for PBXNativeTarget "MusaveraLab" */;
 			buildPhases = (
 				CE074CFB82092D3783CAFD50 /* Sources */,
+				E486B4177EC2EDE90291A53F /* Resources */,
 				977874206CB93E56BD73BA4D /* Frameworks */,
 			);
 			buildRules = (
@@ -231,6 +235,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E486B4177EC2EDE90291A53F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C37156321C220D60A4BB470 /* Musavera Lab.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE074CFB82092D3783CAFD50 /* Sources */ = {
@@ -338,7 +353,8 @@
 		BA6F66BD215783BC54571F70 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Musavera Lab";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MusaveraLab/MusaveraLab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -368,7 +384,8 @@
 		DC3D19AEF2B3314DB1BCCF7D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Musavera Lab";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MusaveraLab/MusaveraLab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

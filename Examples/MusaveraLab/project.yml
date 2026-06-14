@@ -30,6 +30,8 @@ targets:
         product: MusaveraKit
     settings:
       base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: Musavera Lab
+        ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: NO
         CODE_SIGN_ENTITLEMENTS: MusaveraLab/MusaveraLab.entitlements
         CODE_SIGN_STYLE: Automatic
         CURRENT_PROJECT_VERSION: 1
