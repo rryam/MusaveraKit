@@ -6,7 +6,8 @@ small API built on Music Understanding.
 ## Overview
 
 MusaveraKit creates and runs ``MusicUnderstandingSession`` instances for audio
-assets, then presents the result through ``MusaveraAnalysis``.
+assets and streaming PCM buffers, then presents the result through
+``MusaveraAnalysis``.
 
 ```swift
 import AVFoundation
@@ -32,12 +33,14 @@ instrument ranges.
 
 - <doc:GettingStarted>
 - <doc:AnalysisResults>
+- <doc:StreamingAudio>
 
 ### Starting Analysis
 
 - ``Musavera``
 - ``Musavera/analyze(asset:)``
 - ``Musavera/analyze(asset:options:)``
+- ``MusaveraStreamingSession``
 - ``MusaveraAnalysisOptions``
 
 ### Results and Errors

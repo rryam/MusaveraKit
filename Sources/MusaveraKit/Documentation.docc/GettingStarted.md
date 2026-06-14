@@ -9,7 +9,7 @@ Add MusaveraKit to your package dependencies:
 ```swift
 .package(
     url: "https://github.com/rryam/MusaveraKit.git",
-    branch: "main"
+    from: "0.1.0"
 )
 ```
 
