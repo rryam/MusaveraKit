@@ -20,7 +20,7 @@ final class LiveStreamModel {
     var errorMessage: String?
 
     @ObservationIgnored private var audioEngine: AVAudioEngine?
-    @ObservationIgnored private var continuation: AsyncStream<AVReadOnlyAudioPCMBuffer>.Continuation?
+    @ObservationIgnored private var captureSink: LiveAudioBufferSink?
     @ObservationIgnored private var streamingSession: MusaveraStreamingSession?
     @ObservationIgnored private var analysisTask: Task<Void, Never>?
     @ObservationIgnored private var loudnessTask: Task<Void, Never>?
@@ -30,7 +30,7 @@ final class LiveStreamModel {
     isolated deinit {
         analysisTask?.cancel()
         loudnessTask?.cancel()
-        continuation?.finish()
+        captureSink?.finish()
 
         if tapInstalled {
             audioEngine?.inputNode.removeTap(onBus: 0)
@@ -101,14 +101,13 @@ final class LiveStreamModel {
     func stop() {
         guard state == .listening else { return }
 
-        finishAudioProvider()
+        state = .finalizing
+        let progress = finishAudioProvider()
 
-        guard capturedFrameCount > 0 else {
+        guard progress.frameCount > 0 else {
             fail(with: LiveStreamError.noAudioCaptured)
             return
         }
-
-        state = .finalizing
     }
 
     func finishIfNeeded() {
@@ -149,10 +148,11 @@ final class LiveStreamModel {
         let pair = AsyncStream<AVReadOnlyAudioPCMBuffer>.makeStream(
             bufferingPolicy: .unbounded
         )
+        let sink = LiveAudioBufferSink(continuation: pair.continuation)
         let session = MusaveraStreamingSession(audioProvider: pair.stream)
 
         audioEngine = engine
-        continuation = pair.continuation
+        captureSink = sink
         streamingSession = session
         sampleRate = format.sampleRate
         channelCount = Int(format.channelCount)
@@ -168,12 +168,11 @@ final class LiveStreamModel {
                 onBus: 0,
                 bufferSize: bufferSize,
                 format: format
-            ) { [weak self, continuation = pair.continuation] buffer, _ in
-                continuation.yield(buffer)
-                let frameLength = buffer.frameLength
+            ) { [weak self, sink] buffer, _ in
+                guard let progress = sink.yield(buffer) else { return }
 
-                Task { @MainActor [weak self] in
-                    self?.recordCapturedFrames(frameLength)
+                Task { @MainActor [weak self, sink] in
+                    self?.receive(captureProgress: progress, from: sink)
                 }
             }
             tapInstalled = true
@@ -196,7 +195,7 @@ final class LiveStreamModel {
                 }
             } catch {
                 guard !Task.isCancelled else { return }
-                self?.fail(with: error)
+                self?.handleLoudnessFailure(error)
             }
         }
     }
@@ -214,11 +213,17 @@ final class LiveStreamModel {
         }
     }
 
-    private func recordCapturedFrames(_ frameCount: Int) {
-        guard state == .listening else { return }
+    private func receive(
+        captureProgress: LiveCaptureProgress,
+        from sink: LiveAudioBufferSink
+    ) {
+        guard captureSink === sink else { return }
+        apply(captureProgress: captureProgress)
+    }
 
-        capturedFrameCount += Int64(frameCount)
-        bufferCount += 1
+    private func apply(captureProgress: LiveCaptureProgress) {
+        capturedFrameCount = captureProgress.frameCount
+        bufferCount = captureProgress.bufferCount
         elapsedTime = Double(capturedFrameCount) / sampleRate
     }
 
@@ -272,7 +277,8 @@ final class LiveStreamModel {
         finalAnalysis = nil
     }
 
-    private func finishAudioProvider() {
+    @discardableResult
+    private func finishAudioProvider() -> LiveCaptureProgress {
         audioEngine?.stop()
 
         if tapInstalled {
@@ -280,9 +286,15 @@ final class LiveStreamModel {
             tapInstalled = false
         }
 
-        continuation?.finish()
-        continuation = nil
+        let progress = captureSink?.finish()
+            ?? LiveCaptureProgress(
+                frameCount: capturedFrameCount,
+                bufferCount: bufferCount
+            )
+        captureSink = nil
         audioEngine = nil
+        apply(captureProgress: progress)
+        return progress
     }
 
     private func cancelActiveSession() {
@@ -302,9 +314,63 @@ final class LiveStreamModel {
         }
     }
 
+    private func handleLoudnessFailure(_ error: any Error) {
+        loudnessTask = nil
+
+        guard state == .listening else { return }
+        fail(with: error)
+    }
+
     private func fail(with error: any Error) {
         cancelActiveSession()
         state = .idle
         errorMessage = error.localizedDescription
+    }
+}
+
+private nonisolated struct LiveCaptureProgress: Sendable {
+    var frameCount: Int64 = 0
+    var bufferCount = 0
+}
+
+private nonisolated final class LiveAudioBufferSink: @unchecked Sendable {
+    private let lock = NSLock()
+    private let continuation: AsyncStream<AVReadOnlyAudioPCMBuffer>.Continuation
+    private var progress = LiveCaptureProgress()
+    private var isFinished = false
+
+    init(continuation: AsyncStream<AVReadOnlyAudioPCMBuffer>.Continuation) {
+        self.continuation = continuation
+    }
+
+    func yield(_ buffer: AVReadOnlyAudioPCMBuffer) -> LiveCaptureProgress? {
+        lock.lock()
+        defer { lock.unlock() }
+
+        guard !isFinished else { return nil }
+
+        switch continuation.yield(buffer) {
+        case .enqueued:
+            progress.frameCount += Int64(buffer.frameLength)
+            progress.bufferCount += 1
+            return progress
+        case .dropped, .terminated:
+            return nil
+        @unknown default:
+            return nil
+        }
+    }
+
+    @discardableResult
+    func finish() -> LiveCaptureProgress {
+        lock.lock()
+        defer { lock.unlock() }
+
+        if !isFinished {
+            isFinished = true
+            continuation.finish()
+        }
+
+        return progress
     }
 }
