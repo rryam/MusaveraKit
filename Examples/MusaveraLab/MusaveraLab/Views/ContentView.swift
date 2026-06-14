@@ -48,19 +48,19 @@ struct ContentView: View {
         .alert(
             "Musavera Lab",
             isPresented: Binding(
-                get: { model.errorMessage != nil },
+                get: { presentedErrorMessage != nil },
                 set: { isPresented in
                     if !isPresented {
-                        model.errorMessage = nil
+                        dismissPresentedError()
                     }
                 }
             )
         ) {
             Button("OK") {
-                model.errorMessage = nil
+                dismissPresentedError()
             }
         } message: {
-            Text(model.errorMessage ?? "")
+            Text(presentedErrorMessage ?? "")
         }
         .task {
             model.prepare()
@@ -74,6 +74,24 @@ struct ContentView: View {
         }
         .onDisappear {
             liveStreamModel.deactivate()
+        }
+    }
+
+    private var presentedErrorMessage: String? {
+        if let errorMessage = model.errorMessage {
+            errorMessage
+        } else if selection != .live {
+            liveStreamModel.errorMessage
+        } else {
+            nil
+        }
+    }
+
+    private func dismissPresentedError() {
+        if model.errorMessage != nil {
+            model.errorMessage = nil
+        } else {
+            liveStreamModel.errorMessage = nil
         }
     }
 
