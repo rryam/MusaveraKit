@@ -11,8 +11,10 @@ struct MusaveraLabApp: App {
                 .environment(model)
                 .environment(liveStreamModel)
                 .environment(model.previewPlayer)
+                .tint(LabTheme.accent)
                 .frame(minWidth: 1_080, minHeight: 720)
         }
         .defaultSize(width: 1_320, height: 860)
+        .windowToolbarStyle(.unifiedCompact(showsTitle: false))
     }
 }

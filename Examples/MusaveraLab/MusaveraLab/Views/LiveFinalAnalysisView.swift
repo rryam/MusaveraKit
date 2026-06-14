@@ -7,8 +7,7 @@ struct LiveFinalAnalysisView: View {
     let onExport: () -> Void
 
     private let columns = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
+        GridItem(.adaptive(minimum: 280), spacing: 12)
     ]
 
     var body: some View {
@@ -86,10 +85,10 @@ struct LiveFinalAnalysisView: View {
                             systemImage: instrument.systemImage
                         )
                         .font(.callout.weight(.medium))
-                        .foregroundStyle(instrument.labColor)
+                        .foregroundStyle(.secondary)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
-                        .background(instrument.labColor.opacity(0.1), in: Capsule())
+                        .background(LabTheme.raisedSurface, in: Capsule())
                     }
                 }
             }

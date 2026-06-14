@@ -5,42 +5,28 @@ struct LiveStreamHeader: View {
     @Environment(LiveStreamModel.self) private var model
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            HStack(alignment: .center, spacing: 18) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(model.state.tint.opacity(0.12))
-
-                    Image(systemName: model.state.systemImage)
-                        .font(.system(size: 38, weight: .medium))
-                        .foregroundStyle(model.state.tint)
-                        .contentTransition(.symbolEffect(.replace))
-                }
-                .frame(width: 92, height: 92)
-
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("Live Stream")
-                        .font(.largeTitle.bold())
-
-                    Text("Analyze audio as it reaches the microphone, then finish the complete musical picture when capture ends.")
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    Label(model.state.title, systemImage: model.state.systemImage)
-                        .font(.callout.weight(.semibold))
-                        .foregroundStyle(model.state.tint)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(model.state.tint.opacity(0.1), in: Capsule())
+        VStack(alignment: .leading, spacing: 22) {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .center, spacing: 20) {
+                    stateIcon
+                    titleContent
+                    Spacer(minLength: 24)
+                    controls
                 }
 
-                Spacer(minLength: 20)
+                VStack(alignment: .leading, spacing: 18) {
+                    HStack(alignment: .center, spacing: 18) {
+                        stateIcon
+                        titleContent
+                    }
 
-                controls
+                    controls
+                }
             }
 
-            Divider()
+            Rectangle()
+                .fill(LabTheme.separator)
+                .frame(height: 1)
 
             HStack(spacing: 0) {
                 LiveStreamFact(
@@ -49,17 +35,23 @@ struct LiveStreamHeader: View {
                     systemImage: "timer"
                 )
 
+                factDivider
+
                 LiveStreamFact(
                     title: "Sample Rate",
                     value: formattedSampleRate,
                     systemImage: "waveform"
                 )
 
+                factDivider
+
                 LiveStreamFact(
                     title: "Channels",
                     value: formattedChannelCount,
                     systemImage: "speaker.wave.2"
                 )
+
+                factDivider
 
                 LiveStreamFact(
                     title: "Buffers",
@@ -68,11 +60,45 @@ struct LiveStreamHeader: View {
                 )
             }
         }
-        .padding(22)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20))
+        .padding(24)
+        .frame(maxWidth: .infinity, minHeight: 232, alignment: .bottomLeading)
+        .background(LabTheme.surface)
+        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(LabTheme.cardBorder)
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .stroke(LabTheme.separator)
+        }
+    }
+
+    private var stateIcon: some View {
+        Image(systemName: model.state.systemImage)
+            .font(.system(size: 38, weight: .medium))
+            .foregroundStyle(model.state.tint)
+            .frame(width: 88, height: 88)
+            .background(
+                LabTheme.accent.opacity(0.08),
+                in: RoundedRectangle(cornerRadius: 19)
+            )
+            .accessibilityHidden(true)
+    }
+
+    private var titleContent: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text("Live Stream")
+                .font(.largeTitle.bold())
+
+            Text("Hear loudness as audio reaches the microphone, then complete the musical analysis when capture ends.")
+                .font(.title3)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: 690, alignment: .leading)
+
+            Label(model.state.title, systemImage: model.state.systemImage)
+                .font(.callout.weight(.semibold))
+                .foregroundStyle(model.state.tint)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(model.state.tint.opacity(0.08), in: Capsule())
         }
     }
 
@@ -88,7 +114,7 @@ struct LiveStreamHeader: View {
             .tint(.red)
             .controlSize(.large)
         } else if model.isWorking {
-            VStack(alignment: .trailing, spacing: 8) {
+            HStack(spacing: 10) {
                 ProgressView()
                     .controlSize(.small)
 
@@ -97,7 +123,7 @@ struct LiveStreamHeader: View {
                         ? "Waiting for microphone access"
                         : "Completing the final analysis"
                 )
-                .font(.caption)
+                .font(.callout)
                 .foregroundStyle(.secondary)
             }
         } else {
@@ -122,9 +148,16 @@ struct LiveStreamHeader: View {
                     )
                 }
                 .buttonStyle(.borderedProminent)
+                .tint(LabTheme.accent)
                 .controlSize(.large)
             }
         }
+    }
+
+    private var factDivider: some View {
+        Rectangle()
+            .fill(LabTheme.separator)
+            .frame(width: 1, height: 38)
     }
 
     private var formattedDuration: String {
@@ -175,7 +208,7 @@ private struct LiveStreamFact: View {
                     .font(.headline.monospacedDigit())
             }
 
-            Spacer()
+            Spacer(minLength: 8)
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 12)

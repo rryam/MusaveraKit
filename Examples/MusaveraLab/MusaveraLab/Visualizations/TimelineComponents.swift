@@ -235,15 +235,15 @@ extension InstrumentActivityResult.Instrument {
     var labColor: Color {
         switch self {
         case .vocal:
-            .pink
+            LabTheme.accent
         case .drum:
-            .orange
+            LabTheme.accent.opacity(0.78)
         case .bass:
-            .blue
+            LabTheme.accent.opacity(0.58)
         case .other:
-            .purple
+            LabTheme.accent.opacity(0.38)
         default:
-            .purple
+            LabTheme.accent.opacity(0.38)
         }
     }
 

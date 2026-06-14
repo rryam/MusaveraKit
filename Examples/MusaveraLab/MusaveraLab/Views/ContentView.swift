@@ -19,7 +19,7 @@ struct ContentView: View {
                     isImportingAudio = true
                 }
             )
-            .navigationSplitViewColumnWidth(min: 240, ideal: 270, max: 340)
+            .navigationSplitViewColumnWidth(min: 190, ideal: 220, max: 280)
         } detail: {
             switch selection {
             case .analyze:
@@ -35,7 +35,7 @@ struct ContentView: View {
                 LiveStreamView()
             }
         }
-        .navigationSplitViewStyle(.balanced)
+        .navigationSplitViewStyle(.prominentDetail)
         .sheet(isPresented: $isChoosingMusic) {
             MusicSelectionSheet()
         }
@@ -70,10 +70,12 @@ struct ContentView: View {
                 model.pauseAllPlayback()
             } else if oldValue == .live {
                 liveStreamModel.finishIfNeeded()
+                liveStreamModel.pauseRecordingPlayback()
             }
         }
         .onDisappear {
             liveStreamModel.finishIfNeeded()
+            liveStreamModel.pauseRecordingPlayback()
         }
     }
 
@@ -93,6 +95,7 @@ struct ContentView: View {
 }
 
 private struct AnalysisDetailContentView: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(MusaveraLabModel.self) private var model
 
     let onChooseMusic: () -> Void
@@ -109,149 +112,28 @@ private struct AnalysisDetailContentView: View {
                     analysis: analysis,
                     onChooseMusic: onChooseMusic
                 )
-                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
+                .transition(
+                    reduceMotion
+                        ? .opacity
+                        : .opacity.combined(with: .scale(scale: 0.985))
+                )
             } else if model.isBusy {
                 WorkingView(state: model.workState)
             } else {
-                WelcomeDetailView(
+                AnalyzeWelcomeView(
                     onChooseMusic: onChooseMusic,
                     onImportAudio: onImportAudio
                 )
             }
         }
-        .animation(.smooth(duration: 0.35), value: model.analysis != nil)
+        .animation(
+            reduceMotion ? nil : .smooth(duration: 0.35),
+            value: model.analysis != nil
+        )
         .safeAreaInset(edge: .bottom, spacing: 0) {
             if model.analysis != nil {
                 TransportBar()
             }
-        }
-    }
-}
-
-private struct WelcomeDetailView: View {
-    let onChooseMusic: () -> Void
-    let onImportAudio: () -> Void
-
-    private let columns = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
-    ]
-
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 30) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Listen Deeper")
-                        .font(.largeTitle.bold())
-
-                    Text("Turn an Apple Music preview or local audio file into a synchronized map of the song.")
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: 700, alignment: .leading)
-                }
-
-                GroupBox {
-                    HStack(spacing: 22) {
-                        Image(systemName: "waveform.path.ecg.rectangle")
-                            .font(.system(size: 48, weight: .regular))
-                            .foregroundStyle(.secondary)
-                            .frame(width: 86, height: 86)
-                            .background(.quaternary, in: RoundedRectangle(cornerRadius: 18))
-
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Choose your source")
-                                .font(.title2.bold())
-
-                            Text("Search Apple Music from the sidebar, or open an audio file already on this Mac. Musavera Lab downloads only the catalog preview for local analysis.")
-                                .foregroundStyle(.secondary)
-                                .fixedSize(horizontal: false, vertical: true)
-
-                            HStack {
-                                Button("Choose Music", systemImage: "music.note.list") {
-                                    onChooseMusic()
-                                }
-                                .buttonStyle(.borderedProminent)
-
-                                Button("Open Audio File", systemImage: "folder") {
-                                    onImportAudio()
-                                }
-                            }
-                            .padding(.top, 6)
-                        }
-
-                        Spacer()
-                    }
-                    .padding(8)
-                }
-
-                Text("What Musavera understands")
-                    .font(.title2.bold())
-
-                LazyVGrid(columns: columns, spacing: 12) {
-                    CapabilityCard(
-                        title: "Key",
-                        detail: "Tonic and mode over time",
-                        systemImage: "music.quarternote.3"
-                    )
-                    CapabilityCard(
-                        title: "Rhythm",
-                        detail: "Tempo, beats, and bars",
-                        systemImage: "metronome"
-                    )
-                    CapabilityCard(
-                        title: "Structure",
-                        detail: "Sections, segments, and phrases",
-                        systemImage: "square.3.layers.3d"
-                    )
-                    CapabilityCard(
-                        title: "Pace",
-                        detail: "Perceived musical motion",
-                        systemImage: "speedometer"
-                    )
-                    CapabilityCard(
-                        title: "Instruments",
-                        detail: "Vocal, drum, bass, and other activity",
-                        systemImage: "pianokeys"
-                    )
-                    CapabilityCard(
-                        title: "Loudness",
-                        detail: "Peak, integrated, and momentary levels",
-                        systemImage: "waveform"
-                    )
-                }
-            }
-            .frame(maxWidth: 1_000, alignment: .leading)
-            .padding(32)
-        }
-    }
-}
-
-private struct CapabilityCard: View {
-    let title: String
-    let detail: String
-    let systemImage: String
-
-    var body: some View {
-        GroupBox {
-            HStack(alignment: .top, spacing: 12) {
-                Image(systemName: systemImage)
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
-                    .frame(width: 28)
-
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(title)
-                        .font(.headline)
-                    Text(detail)
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Spacer(minLength: 0)
-            }
-            .frame(maxWidth: .infinity, minHeight: 58, alignment: .topLeading)
         }
     }
 }

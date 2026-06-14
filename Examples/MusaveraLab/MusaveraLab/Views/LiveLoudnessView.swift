@@ -7,10 +7,7 @@ struct LiveLoudnessView: View {
     @Environment(LiveStreamModel.self) private var model
 
     private let metricColumns = [
-        GridItem(.flexible(), spacing: 10),
-        GridItem(.flexible(), spacing: 10),
-        GridItem(.flexible(), spacing: 10),
-        GridItem(.flexible(), spacing: 10)
+        GridItem(.adaptive(minimum: 145), spacing: 18)
     ]
 
     var body: some View {
@@ -87,8 +84,7 @@ private struct LiveLoudnessMetric: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(12)
-        .background(.quaternary.opacity(0.65), in: RoundedRectangle(cornerRadius: 11))
+        .padding(.vertical, 4)
         .accessibilityElement(children: .combine)
     }
 }

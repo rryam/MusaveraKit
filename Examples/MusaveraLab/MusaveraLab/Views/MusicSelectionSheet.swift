@@ -52,7 +52,7 @@ struct MusicSelectionSheet: View {
                     .listStyle(.inset)
                 }
             }
-            .navigationTitle("Choose Music")
+            .navigationTitle("Search Apple Music")
             .searchable(
                 text: $query,
                 placement: .toolbar,
@@ -66,7 +66,7 @@ struct MusicSelectionSheet: View {
                 }
             }
         }
-        .frame(minWidth: 680, minHeight: 540)
+        .frame(minWidth: 720, minHeight: 600)
         .task(id: SearchContext(query: query, isAuthorized: model.isAuthorized)) {
             await search()
         }
@@ -140,7 +140,7 @@ private struct MusicSelectionRow: View {
             HStack(spacing: 14) {
                 ArtworkView(
                     url: song.artwork?.url(width: 144, height: 144),
-                    size: 58
+                    size: 52
                 )
 
                 VStack(alignment: .leading, spacing: 3) {
@@ -149,22 +149,24 @@ private struct MusicSelectionRow: View {
                         .lineLimit(1)
 
                     Text(song.artistName)
+                        .font(.callout)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
 
-                    Label(
-                        hasPreview ? "Preview available" : "Preview unavailable",
-                        systemImage: hasPreview ? "waveform" : "exclamationmark.circle"
-                    )
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
+                    if !hasPreview {
+                        Label("Preview unavailable", systemImage: "exclamationmark.circle")
+                            .font(.caption)
+                            .foregroundStyle(.tertiary)
+                    }
                 }
 
                 Spacer()
 
-                Image(systemName: "chevron.right")
+                Label("Analyze", systemImage: "waveform")
                     .font(.caption.weight(.semibold))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(
+                        hasPreview ? LabTheme.accent : Color.secondary.opacity(0.5)
+                    )
             }
             .contentShape(Rectangle())
         }

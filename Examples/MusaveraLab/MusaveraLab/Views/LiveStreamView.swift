@@ -4,6 +4,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct LiveStreamView: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(LiveStreamModel.self) private var model
     @State private var isExporting = false
 
@@ -15,6 +16,10 @@ struct LiveStreamView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     LiveStreamHeader()
+
+                    if model.recordingURL != nil {
+                        LiveRecordingTransport()
+                    }
 
                     if let errorMessage = model.errorMessage {
                         LiveStreamErrorBanner(
@@ -34,14 +39,21 @@ struct LiveStreamView: View {
                                 isExporting = true
                             }
                         )
-                        .transition(.opacity.combined(with: .move(edge: .bottom)))
+                        .transition(
+                            reduceMotion
+                                ? .opacity
+                                : .opacity.combined(with: .move(edge: .bottom))
+                        )
                     }
                 }
-                .frame(maxWidth: 1_300, alignment: .leading)
-                .padding(28)
+                .frame(maxWidth: LabTheme.contentWidth, alignment: .leading)
+                .padding(32)
             }
         }
-        .animation(.smooth(duration: 0.3), value: model.state)
+        .animation(
+            reduceMotion ? nil : .smooth(duration: 0.3),
+            value: model.state
+        )
         .fileExporter(
             isPresented: $isExporting,
             document: exportDocument,
@@ -99,10 +111,6 @@ private struct LiveStreamErrorBanner: View {
         }
         .padding(16)
         .background(.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 14))
-        .overlay {
-            RoundedRectangle(cornerRadius: 14)
-                .stroke(.orange.opacity(0.24))
-        }
     }
 
     private func openMicrophoneSettings() {
@@ -118,33 +126,33 @@ private struct LiveStreamErrorBanner: View {
 
 private struct LiveAnalysisBoundaryView: View {
     private let columns = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
+        GridItem(.adaptive(minimum: 250), spacing: 12)
     ]
 
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
-            LiveCapabilityCard(
-                title: "While Listening",
-                detail: "Momentary, short-term, integrated, and peak loudness update from incoming PCM buffers.",
-                systemImage: "waveform",
-                tint: .red
-            )
+        VStack(alignment: .leading, spacing: 12) {
+            Text("How Streaming Works")
+                .font(.title2.bold())
 
-            LiveCapabilityCard(
-                title: "After You Stop",
-                detail: "Music Understanding finishes key, tempo, structure, pace, instruments, and final loudness.",
-                systemImage: "waveform.path.ecg",
-                tint: .indigo
-            )
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
+                LiveCapabilityCard(
+                    title: "While Listening",
+                    detail: "Momentary, short-term, integrated, and peak loudness update from incoming PCM buffers.",
+                    systemImage: "waveform"
+                )
 
-            LiveCapabilityCard(
-                title: "Audio Boundary",
-                detail: "This tab analyzes microphone PCM. MusicKit playback does not expose full-song PCM to apps.",
-                systemImage: "lock.shield",
-                tint: .blue
-            )
+                LiveCapabilityCard(
+                    title: "After You Stop",
+                    detail: "Music Understanding finishes key, tempo, structure, pace, instruments, and final loudness.",
+                    systemImage: "waveform.path.ecg"
+                )
+
+                LiveCapabilityCard(
+                    title: "Audio Boundary",
+                    detail: "This tab analyzes microphone PCM. MusicKit playback does not expose full-song PCM to apps.",
+                    systemImage: "lock.shield"
+                )
+            }
         }
     }
 }
@@ -153,15 +161,16 @@ private struct LiveCapabilityCard: View {
     let title: String
     let detail: String
     let systemImage: String
-    let tint: Color
 
     var body: some View {
-        GroupBox {
-            VStack(alignment: .leading, spacing: 8) {
-                Image(systemName: systemImage)
-                    .font(.title2)
-                    .foregroundStyle(tint)
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: systemImage)
+                .font(.title3.weight(.medium))
+                .foregroundStyle(LabTheme.accent)
+                .frame(width: 36, height: 36)
+                .background(LabTheme.accent.opacity(0.08), in: Circle())
 
+            VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.headline)
 
@@ -170,7 +179,14 @@ private struct LiveCapabilityCard: View {
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            .frame(maxWidth: .infinity, minHeight: 112, alignment: .topLeading)
+
+            Spacer(minLength: 0)
         }
+        .padding(14)
+        .frame(maxWidth: .infinity, minHeight: 102, alignment: .topLeading)
+        .background(
+            LabTheme.surface,
+            in: RoundedRectangle(cornerRadius: LabTheme.sectionRadius, style: .continuous)
+        )
     }
 }

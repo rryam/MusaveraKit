@@ -38,15 +38,6 @@ enum LiveStreamState: Equatable {
     }
 
     var tint: Color {
-        switch self {
-        case .idle:
-            .secondary
-        case .requestingPermission, .finalizing:
-            .orange
-        case .listening:
-            .red
-        case .complete:
-            .green
-        }
+        LabTheme.accent
     }
 }
