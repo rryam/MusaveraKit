@@ -1,14 +1,11 @@
-import MusicUnderstanding
 import MusaveraKit
 import SwiftUI
 
 struct LiveFinalAnalysisView: View {
+    @Environment(LiveStreamModel.self) private var model
+
     let analysis: MusaveraAnalysis
     let onExport: () -> Void
-
-    private let columns = [
-        GridItem(.adaptive(minimum: 280), spacing: 12)
-    ]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -27,100 +24,9 @@ struct LiveFinalAnalysisView: View {
                     .buttonStyle(.bordered)
             }
 
-            LazyVGrid(columns: columns, spacing: 12) {
-                AnalysisTile(title: "Key", systemImage: "music.quarternote.3") {
-                    KeySummaryView(key: analysis.key)
-                }
-
-                AnalysisTile(title: "Rhythm", systemImage: "metronome") {
-                    RhythmSummaryView(rhythm: analysis.rhythm)
-                }
-
-                AnalysisTile(title: "Structure", systemImage: "square.3.layers.3d") {
-                    HStack(spacing: 12) {
-                        FinalAnalysisMetric(
-                            value: analysis.sectionCount.formatted(),
-                            label: "Sections"
-                        )
-                        FinalAnalysisMetric(
-                            value: analysis.phraseCount.formatted(),
-                            label: "Phrases"
-                        )
-                        FinalAnalysisMetric(
-                            value: analysis.segmentCount.formatted(),
-                            label: "Segments"
-                        )
-                    }
-                    .frame(height: 92)
-                }
-
-                AnalysisTile(title: "Timeline", systemImage: "point.3.connected.trianglepath.dotted") {
-                    HStack(spacing: 12) {
-                        FinalAnalysisMetric(
-                            value: analysis.beatCount.formatted(),
-                            label: "Beats"
-                        )
-                        FinalAnalysisMetric(
-                            value: analysis.barCount.formatted(),
-                            label: "Bars"
-                        )
-                        FinalAnalysisMetric(
-                            value: detectedInstruments.count.formatted(),
-                            label: "Instruments"
-                        )
-                    }
-                    .frame(height: 92)
-                }
-            }
-
-            if !detectedInstruments.isEmpty {
-                HStack(spacing: 8) {
-                    Text("Detected")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(.secondary)
-
-                    ForEach(detectedInstruments, id: \.rawValue) { instrument in
-                        Label(
-                            instrument.rawValue.capitalized,
-                            systemImage: instrument.systemImage
-                        )
-                        .font(.callout.weight(.medium))
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(LabTheme.raisedSurface, in: Capsule())
-                    }
-                }
-            }
+            AnalysisResultsView(analysis: analysis)
+                .environment(model.recordingPlayer)
         }
         .padding(.top, 4)
-    }
-
-    private var detectedInstruments: [InstrumentActivityResult.Instrument] {
-        guard let activity = analysis.instrumentActivity else { return [] }
-
-        return InstrumentActivityResult.Instrument.labOrder.filter { instrument in
-            !(activity.ranges[instrument] ?? []).isEmpty
-                || !activity.activity(for: instrument).isEmpty
-        }
-    }
-}
-
-private struct FinalAnalysisMetric: View {
-    let value: String
-    let label: String
-
-    var body: some View {
-        VStack(spacing: 4) {
-            Text(value)
-                .font(.system(.title, design: .rounded, weight: .bold))
-                .monospacedDigit()
-
-            Text(label)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity)
-        .accessibilityElement(children: .combine)
     }
 }
