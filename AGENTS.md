@@ -66,7 +66,9 @@ xcodebuild \
 Generate DocC documentation after changing public APIs:
 
 ```bash
-swift package generate-documentation --target MusaveraKit
+swift package generate-documentation \
+  --target MusaveraKit \
+  Sources/MusaveraKit/Documentation.docc
 ```
 
 ## Pull Requests

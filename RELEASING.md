@@ -25,7 +25,9 @@ xcodebuild \
   -destination 'generic/platform=iOS' \
   -derivedDataPath .build/xcode \
   build
-swift package generate-documentation --target MusaveraKit
+swift package generate-documentation \
+  --target MusaveraKit \
+  Sources/MusaveraKit/Documentation.docc
 git diff --check
 ```
 
