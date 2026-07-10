@@ -23,6 +23,11 @@ let package = Package(
     targets: [
         .target(
             name: "MusaveraKit",
+            // SwiftPM otherwise reports the DocC catalog as an unhandled file.
+            // Documentation commands pass the catalog path explicitly.
+            exclude: [
+                "Documentation.docc"
+            ],
             resources: [
                 .copy("PrivacyInfo.xcprivacy")
             ],

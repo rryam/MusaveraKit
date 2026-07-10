@@ -74,13 +74,17 @@ requirements, or recommended usage changes.
 Generate the documentation locally with:
 
 ```bash
-swift package generate-documentation --target MusaveraKit
+swift package generate-documentation \
+  --target MusaveraKit \
+  Sources/MusaveraKit/Documentation.docc
 ```
 
 Preview it with:
 
 ```bash
-swift package --disable-sandbox preview-documentation --target MusaveraKit
+swift package --disable-sandbox preview-documentation \
+  --target MusaveraKit \
+  Sources/MusaveraKit/Documentation.docc
 ```
 
 ## Code Style
