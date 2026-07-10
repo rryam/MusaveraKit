@@ -54,7 +54,7 @@ Add MusaveraKit with Swift Package Manager:
 dependencies: [
     .package(
         url: "https://github.com/rryam/MusaveraKit.git",
-        from: "0.2.0"
+        from: "0.2.1"
     )
 ]
 ```
@@ -215,7 +215,9 @@ Scripts/validate-repository.sh
 Generate DocC documentation:
 
 ```bash
-swift package generate-documentation --target MusaveraKit
+swift package generate-documentation \
+  --target MusaveraKit \
+  Sources/MusaveraKit/Documentation.docc
 ```
 
 ## Documentation and Resources
